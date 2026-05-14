@@ -2,7 +2,7 @@ import type {Request, Response, NextFunction } from "express";
 import { CustomError } from "../types";
 
 
-export const ErrorMiddleware = (err:Error | CustomError, req:Request, res:Response, next:NextFunction)=>{
+export const ErrorMiddleware = (err:Error | CustomError, req:Request, res:Response, _next:NextFunction)=>{
 
   
     if(err instanceof CustomError){

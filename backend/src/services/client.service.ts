@@ -45,7 +45,7 @@ export const updateClient = async (
   const client = await assertClientAccess(clientId, user);
   if (client instanceof CustomError) return client;
 
-  const { id, createdAt, businessId, ...updates } = payload as Partial<typeof ClientModel.$inferSelect>;
+  const { id: _id, createdAt: _createdAt, businessId: _businessId, ...updates } = payload as Partial<typeof ClientModel.$inferSelect>;
   const [updatedClient] = await db
     .update(ClientModel)
     .set({ ...updates, updatedAt: new Date() })

@@ -114,7 +114,14 @@ export const updateInvoice = async (
   const invoice = await assertInvoiceAccess(invoiceId, user);
   if (invoice instanceof CustomError) return invoice;
 
-  const { id, createdAt, businessId, clientId, items, ...updates } = payload as Partial<InvoiceInput & typeof InvoiceModel.$inferSelect>;
+  const {
+    id: _id,
+    createdAt: _createdAt,
+    businessId: _businessId,
+    clientId: _clientId,
+    items: _items,
+    ...updates
+  } = payload as Partial<InvoiceInput & typeof InvoiceModel.$inferSelect>;
 
   const [updatedInvoice] = await db
     .update(InvoiceModel)
