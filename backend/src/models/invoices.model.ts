@@ -32,7 +32,7 @@ export const InvoiceModel = pgTable("invoices", {
   status: invoiceStatusEnum("status").notNull().default("draft"),
   issueDate: date("issue_date").notNull(),
   dueDate: date("due_date").notNull(),
-  currency: text("currency").notNull().default("USD"),
+  currency: text("currency").notNull().default("GHS"),
   subtotal: numeric("subtotal", { precision: 10, scale: 2 }).notNull().default("0"),
   taxAmount: numeric("tax_amount", { precision: 10, scale: 2 }).notNull().default("0"),
   discountAmount: numeric("discount_amount", { precision: 10, scale: 2 }).notNull().default("0"),

@@ -1,25 +1,42 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware';
 
-interface IUserData{
+export type UserRole = "admin" | "user" | "guest";
+
+export interface IUserData{
     id:string;
-    fullname:string;
-    username:string;
-    role:string;
+    fullName:string;
+    email:string;
+    role:UserRole;
+    emailVerified:boolean;
 }
 
-export const useAuthStore = create(
+interface AuthState {
+  userData: IUserData | null;
+  token: string | null;
+  hasHydrated: boolean;
+  setUser: (userData: IUserData) => void;
+  setToken: (token: string) => void;
+  setAuth: (payload: { user: IUserData; token: string }) => void;
+  clearAuth: () => void;
+  setHasHydrated: (hasHydrated: boolean) => void;
+}
+
+export const useAuthStore = create<AuthState>()(
   persist((set)=>({
     userData:null,
     token:null,
+    hasHydrated:false,
     setUser:(userData:IUserData)=>set({userData}), 
     setToken:(token:string)=>set({token}), 
+    setAuth:({ user, token })=>set({userData:user, token}),
     clearAuth:()=>set({userData:null, token:null}), 
+    setHasHydrated:(hasHydrated:boolean)=>set({hasHydrated}),
   }),
   {
     name:"authData",
     onRehydrateStorage: () => (state) => {
-        console.log("Hydration finished!");
+        state?.setHasHydrated(true);
       },
   }
 ))

@@ -2,7 +2,6 @@
 import { Cbutton } from "@/app/components/shared/button";
 import { CInput } from "@/app/components/shared/input";
 import { ArrowCircleDownIcon, PencilSimpleLineIcon, PlusIcon } from "@phosphor-icons/react";
-import Image from "next/image";
 
 
 export default function CreateInvoicePage() {
