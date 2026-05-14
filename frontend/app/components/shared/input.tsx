@@ -18,9 +18,9 @@ const inputVariants = cva("w-full transition-colors", {
 
 
 interface IInputProps<T extends FieldValues> extends VariantProps<typeof inputVariants> {
-    label: string
+    label?: string
     inputType: "search" | "form"
-    name: Path<T>
+    name?: Path<T>
     className?: string
     register?: UseFormRegister<T>
     errors?: FieldErrors<T>
@@ -43,8 +43,8 @@ export const CInput = <T extends FieldValues>({
 }: IInputProps<T>) => {
 
 
-    const hasError = !!(errors?.[name] || isError);
-    const errorMessage = errors?.[name]?.message as string | undefined;
+    const hasError = !!((name && errors?.[name]) || isError);
+    const errorMessage = name ? errors?.[name]?.message as string | undefined : undefined;
 
     if (inputType === "search") {
         return (
@@ -60,14 +60,16 @@ export const CInput = <T extends FieldValues>({
 
     return (
         <div className="flex flex-col gap-2 w-full">
-            <label className="block text-xs mb-2 text-zinc-100">
-                {label}
-            </label>
+            {label && (
+                <label className="block text-xs mb-2 text-zinc-100">
+                    {label}
+                </label>
+            )}
 
             <input
                 placeholder={placeholder}
                 type={type}
-                {...register?.(name)}
+                {...(name ? register?.(name) : {})}
                 className={cn(
                     inputVariants({ variant }),
                     hasError ? "border-red-500 focus:border-red-500" : "",

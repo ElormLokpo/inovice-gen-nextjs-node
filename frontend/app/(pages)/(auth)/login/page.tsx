@@ -17,10 +17,9 @@ export default function LoginPage() {
         }
     })
 
-    const { mutate: handleLogin, isPending, isError } = useLogin();
+    const { mutate: handleLogin, isPending } = useLogin();
 
     const submitHandler = async (data: LoginSchemaType) => {
-        console.log("isError", isError)
         handleLogin(data)
     }
 
@@ -76,13 +75,13 @@ export default function LoginPage() {
                                 />
                                 <span className="group-hover:text-zinc-200 transition-colors">Remember me</span>
                             </label>
-                            <Link href="#" className="text-emerald-400 hover:text-emerald-300 transition-colors">
+                            <Link href={FRONTEND_URLS.FORGOT_PASSWORD} className="text-emerald-400 hover:text-emerald-300 transition-colors">
                                 Forgot password?
                             </Link>
                         </div>
 
-                        <button className="w-full py-5 bg-emerald-500 hover:bg-emerald-600 text-black font-semibold rounded-3xl text-lg transition-transform active:scale-[0.98]">
-                            Sign In
+                        <button disabled={isPending} className="w-full py-5 bg-emerald-500 hover:bg-emerald-600 disabled:bg-zinc-700 disabled:text-zinc-400 text-black font-semibold rounded-3xl text-lg transition-transform active:scale-[0.98]">
+                            {isPending ? "Signing in..." : "Sign In"}
                         </button>
 
                         <div className="text-center text-zinc-400 text-sm mt-6">

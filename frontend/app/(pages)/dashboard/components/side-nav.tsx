@@ -1,9 +1,13 @@
 "use client"
+import { FRONTEND_URLS } from "@/app/constants"
+import { useAuthStore } from "@/app/store"
 import { CardholderIcon, FileLockIcon, GearSixIcon, SignOutIcon } from "@phosphor-icons/react"
-import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { ReactElement } from "react"
 
 export const DashboardSideNav = () => {
+    const router = useRouter()
+    const clearAuth = useAuthStore((state) => state.clearAuth)
 
     const navLinksArr = [
         { icon: <FileLockIcon size={25} />, text: "Invoice", link: "" },
@@ -15,8 +19,15 @@ export const DashboardSideNav = () => {
     ]
 
     const settingsArr = [
-        { icon: <GearSixIcon size={25} />, text: "Settings", link: "" },
-        { icon: <SignOutIcon size={25} />, text: "Logout", link: "" },
+        { icon: <GearSixIcon size={25} />, text: "Settings" },
+        {
+            icon: <SignOutIcon size={25} />,
+            text: "Logout",
+            onClick: () => {
+                clearAuth()
+                router.replace(FRONTEND_URLS.LOGIN)
+            }
+        },
 
     ]
 
@@ -34,13 +45,13 @@ export const DashboardSideNav = () => {
                 <div>
                     <div className="flex gap-5 flex-col mb-10">
                         {
-                            navLinksArr.map(({ icon, text, link }, key) => <NavItem icon={icon} text={text} link={link} key={key} />)
+                            navLinksArr.map(({ icon, text }, key) => <NavItem icon={icon} text={text} key={key} />)
                         }
                     </div>
 
                     <div className="flex gap-5 flex-col">
                         {
-                            settingsArr.map(({ icon, text, link }, key) => <NavItem icon={icon} text={text} link={link} key={key} />)
+                            settingsArr.map(({ icon, text, onClick }, key) => <NavItem icon={icon} text={text} onClick={onClick} key={key} />)
                         }
                     </div>
                 </div>
@@ -50,14 +61,14 @@ export const DashboardSideNav = () => {
     )
 }
 
-const NavItem = ({ icon, text, link }: { icon: ReactElement, text: string, link: string }) => {
+const NavItem = ({ icon, text, onClick }: { icon: ReactElement, text: string, onClick?: () => void }) => {
     return (
-        <div className="text-zinc-200 hover:cursor-pointer flex flex-col items-center hover:bg-emerald-500 hover:text-zinc-100 rounded-2xl p-3">
+        <button type="button" onClick={onClick} className="text-zinc-200 hover:cursor-pointer flex flex-col items-center hover:bg-emerald-500 hover:text-zinc-100 rounded-2xl p-3">
             <div>
                 {icon}
             </div>
             <div className="text-xs text-center">{text}</div>
-        </div>
+        </button>
     )
 
 }

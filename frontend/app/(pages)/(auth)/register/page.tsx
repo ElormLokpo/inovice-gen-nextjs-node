@@ -11,15 +11,15 @@ export default function RegisterPage() {
     const { register, handleSubmit, formState: { errors } } = useForm<RegisterSchemaType>({
         resolver: zodResolver(RegisterSchema),
         defaultValues: {
+            fullName: "",
             email: "",
             password: "",
         }
     })
 
-    const { mutate: handleRegister, isPending, isError } = useRegister();
+    const { mutate: handleRegister, isPending } = useRegister();
 
     const submitHandler = async (data: RegisterSchemaType) => {
-        console.log("isError", isError)
         handleRegister(data)
     }
 
@@ -79,7 +79,7 @@ export default function RegisterPage() {
                         </div>
 
                       
-                        <button disabled={isPending} className="w-full py-5 bg-emerald-500 hover:bg-emerald-600 text-black font-semibold rounded-3xl text-lg transition-transform active:scale-[0.98]">
+                        <button disabled={isPending} className="w-full py-5 bg-emerald-500 hover:bg-emerald-600 disabled:bg-zinc-700 disabled:text-zinc-400 text-black font-semibold rounded-3xl text-lg transition-transform active:scale-[0.98]">
                             {isPending ? "Creating account..." : "Sign Up"}
                         </button>
 

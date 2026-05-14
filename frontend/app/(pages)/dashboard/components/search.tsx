@@ -33,7 +33,7 @@ const NavSummary = () => {
     return (
         <div className="flex gap-2 items-center">
             {
-                summaryList.map(({ title, link }, key) => <div className="flex hover:cursor-pointer gap-1 items-center" key={key}>
+                summaryList.map(({ title }, key) => <div className="flex hover:cursor-pointer gap-1 items-center" key={key}>
                     <span>{"/"}</span>
                     <FolderPlusIcon size={15} />
 

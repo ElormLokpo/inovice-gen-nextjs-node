@@ -1,10 +1,10 @@
-import { ReactElement } from "react";
+import { ReactNode } from "react";
 import { DashboardSideNav } from "./components/side-nav";
 import { TopNav } from "./components/top-nav";
 import { Search } from "./components/search";
 
 
-export default function DashboardLayout({ children }: { children: ReactElement }) {
+export default function DashboardLayout({ children }: { children: ReactNode }) {
     return (
 
         <div className="bg-zinc-900 h-screen grid grid-cols-18">

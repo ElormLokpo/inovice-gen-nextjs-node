@@ -29,13 +29,13 @@ const userJwtPayload = (user: typeof UserModel.$inferSelect): JwtUserPayload => 
     emailVerified: Boolean(user.emailVerifiedAt),
 });
 
-const appUrl = () => process.env.APP_URL ?? "http://localhost:3000";
+const frontendUrl = () => process.env.FRONTEND_URL ?? process.env.APP_URL ?? "http://localhost:3000";
 
 const sendConfirmationEmail = async (email:string, token:string) => {
-    const confirmationUrl = `${appUrl()}/confirm-email?token=${token}`;
+    const confirmationUrl = `${frontendUrl()}/confirm-email?token=${token}`;
     await sendDemoMail({
         to: email,
-        subject: "Confirm your invoice app email",
+        subject: "Confirm your email",
         text: `Confirm your email by opening this link: ${confirmationUrl}`,
     });
 };
@@ -66,7 +66,7 @@ export const RegisterUserService = async (authData:IAuthRequestType)=>{
 
     return {
         user: sanitizeUser(createdUser),
-        message: "Registration successful. Check the demo email logs for your confirmation link.",
+        message: "Registration successful. Check email for your confirmation link.",
     };
 };
 
@@ -139,14 +139,14 @@ export const ResendConfirmationService = async (email:string)=>{
 
     await sendConfirmationEmail(user.email, confirmationToken);
 
-    return { message: "Confirmation email sent. Check the demo email logs." };
+    return { message: "Confirmation email sent. Check email ." };
 }
 
 export const ForgotPasswordService = async (email:string)=>{
     const [user] = await userEmailExists(email);
 
     if (!user) {
-        return { message: "If that email exists, a reset link has been sent." };
+        return { message: "A reset link has been sent." };
     }
 
     const resetToken = createPlainToken();
@@ -161,14 +161,14 @@ export const ForgotPasswordService = async (email:string)=>{
         })
         .where(eq(UserModel.id, user.id));
 
-    const resetUrl = `${appUrl()}/reset-password?token=${resetToken}`;
+    const resetUrl = `${frontendUrl()}/reset-password?token=${resetToken}`;
     await sendDemoMail({
         to: user.email,
         subject: "Reset your invoice app password",
         text: `Reset your password by opening this link: ${resetUrl}`,
     });
 
-    return { message: "If that email exists, a reset link has been sent." };
+    return { message: "A reset link has been sent." };
 }
 
 export const ResetPasswordService = async (token:string, password:string)=>{

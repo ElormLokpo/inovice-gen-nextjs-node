@@ -1,5 +1,4 @@
 "use client"
-import { useAuthStore } from "@/app/store";
 import { CaretLeftIcon, FilePdfIcon } from "@phosphor-icons/react"
 import Image from "next/image"
 

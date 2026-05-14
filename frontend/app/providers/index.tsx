@@ -10,35 +10,31 @@ import { useEffect, useState } from "react";
 const AuthGuard = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const token = useAuthStore((state: any) => state.token);
-  const [isHydrated, setIsHydrated] = useState(false);
+  const token = useAuthStore((state) => state.token);
+  const hasHydrated = useAuthStore((state) => state.hasHydrated);
 
 
-  const isPublicRoute = pathname === "/login" || pathname === "/register" || pathname === "/";
+  const isPublicRoute = ["/", "/login", "/register", "/forgot-password", "/reset-password", "/confirm-email"].includes(pathname);
 
   useEffect(() => {
-    setIsHydrated(true);
-
-
-    const unsub = useAuthStore.subscribe((state: any) => {
+    const unsub = useAuthStore.subscribe((state) => {
       if (!state.token && !isPublicRoute) {
-        router.replace("/");
-        router.refresh();
+        router.replace("/login");
       }
     });
 
     return () => unsub();
-  }, [router, isPublicRoute]);;
+  }, [router, isPublicRoute]);
 
 
   useEffect(() => {
-    if (isHydrated && !token && !isPublicRoute) {
-      router.replace("/");
+    if (hasHydrated && !token && !isPublicRoute) {
+      router.replace("/login");
     }
-  }, [isHydrated, token, isPublicRoute, router]);
+  }, [hasHydrated, token, isPublicRoute, router]);
 
 
-  if (!isHydrated) return null;
+  if (!hasHydrated) return null;
 
 
   if (!token && !isPublicRoute) return null;
@@ -62,9 +58,8 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Toaster position="top-center" richColors />
-      {/* <AuthGuard>{children}</AuthGuard> */}
-      {children}
+      <Toaster position="top-right" />
+      <AuthGuard>{children}</AuthGuard>
 
     </QueryClientProvider>
   );
