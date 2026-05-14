@@ -13,7 +13,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 <DashboardSideNav />
             </div>
 
-            <div className="col-span-17 bg-zinc-900">
+            <div className="col-span-12 bg-zinc-900">
                 <div className="mb-1">
                     <TopNav />
                 </div>
@@ -22,6 +22,10 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 </div>
 
                 {children}
+            </div>
+
+            <div className="col-span-6">
+                ad
             </div>
         </div>
     )

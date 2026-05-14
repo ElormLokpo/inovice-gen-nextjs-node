@@ -3,12 +3,12 @@ import { cn } from "@/app/lib/utils"
 import { cva, type VariantProps } from "class-variance-authority"
 import { ReactElement } from "react"
 
-const buttonVariants = cva("rounded-lg gap-2 flex items-center justify-center cursor-pointer transition-all duration-300 ease-in-out",
+const buttonVariants = cva("rounded-lg transition-transform active:scale-[0.98] gap-2 flex items-center justify-center cursor-pointer transition-all duration-300 ease-in-out",
     {
         variants: {
             variant: {
-                primary: "bg-emerald-500 hover:bg-emerald-600  font-semibold",
-                secondary: "0 border border-zinc-600 hover:bg-zinc-600 text-zinc-300 font-semibold"
+                primary: "bg-emerald-500 hover:bg-emerald-600 disabled:bg-zinc-700 disabled:text-zinc-400 text-black font-semibold rounded-3xl text-lg ",
+                secondary: "0 border border-zinc-600 hover:bg-zinc-700 text-zinc-300 font-semibold rounded-3xl"
             },
             size: {
                 xs: "text-xs p-2",

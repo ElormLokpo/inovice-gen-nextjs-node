@@ -121,7 +121,7 @@ export default function Home() {
                       <tr>
                         <td className="py-4">Design System</td>
                         <td className="text-right">$120.00</td>
-                        <td className="text-right font-medium">$120.00</td>
+                        <td className="text-right font-medium">GHC120.00</td>
                       </tr>
                     </tbody>
                   </table>
@@ -130,7 +130,7 @@ export default function Home() {
                     <div className="w-64 space-y-3">
                       <div className="pt-3 border-t border-zinc-300 flex justify-between font-semibold">
                         <span>Total</span>
-                        <span className="text-xl">$215.09</span>
+                        <span className="text-xl">GHC215.09</span>
                       </div>
                     </div>
                   </div>

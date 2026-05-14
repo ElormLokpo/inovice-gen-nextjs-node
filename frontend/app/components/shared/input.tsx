@@ -4,11 +4,11 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { MagnifyingGlassIcon } from "@phosphor-icons/react";
 import { FieldErrors, UseFormRegister, FieldValues, Path } from "react-hook-form";
 
-const inputVariants = cva("w-full transition-colors", {
+const inputVariants = cva("w-full transition-colors  border border-zinc-700 focus:outline-none focus:border-emerald-500", {
     variants: {
         variant: {
-            auth: "bg-zinc-900 border border-zinc-700 rounded-3xl px-6 py-5 focus:outline-none focus:border-emerald-500",
-            default: "bg-transparent border border-zinc-700 px-4 py-3 rounded-xl text-zinc-100"
+            auth: "bg-zinc-900 rounded-3xl px-6 py-5",
+            default: "bg-transparent px-4 py-3 rounded-xl text-zinc-100"
         }
     },
     defaultVariants: {

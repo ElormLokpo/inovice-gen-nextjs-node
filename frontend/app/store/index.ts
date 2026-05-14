@@ -40,3 +40,17 @@ export const useAuthStore = create<AuthState>()(
       },
   }
 ))
+
+interface SideModalState{
+    isOpen:boolean;
+    openModal:()=>void;
+    closeModal:()=>void;
+    toggleModal:()=>void;
+}
+
+export const useSideModal = create<SideModalState>()((set)=>({
+    isOpen:false,
+    openModal:()=>set({isOpen:true}),
+    closeModal:()=>set({isOpen:false}),
+    toggleModal:()=>set((state)=>({isOpen:!state.isOpen}))
+}))
