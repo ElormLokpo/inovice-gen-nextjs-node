@@ -39,7 +39,7 @@ export const updateBusiness = async (
   const business = await assertBusinessAccess(businessId, user);
   if (business instanceof CustomError) return business;
 
-  const { id, createdAt, ownerId, ...updates } = payload as Partial<typeof BusinessModel.$inferSelect>;
+  const { id: _id, createdAt: _createdAt, ownerId: _ownerId, ...updates } = payload as Partial<typeof BusinessModel.$inferSelect>;
   const [updatedBusiness] = await db
     .update(BusinessModel)
     .set({ ...updates, updatedAt: new Date() })

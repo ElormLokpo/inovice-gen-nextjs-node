@@ -15,10 +15,14 @@ export const CreateServer = ()=>{
     app.use(express.json())
     app.use(urlencoded({extended:true}))
     app.use(cors({
-        origin:"http://localhost:3000",
+        origin:process.env.FRONTEND_URL ?? "http://localhost:3000",
         methods:["GET","POST","PUT","DELETE"],
         credentials:true
     }))
+
+    app.get("/health", (_req, res) => {
+        res.status(200).json({ success: true, message: "ok" });
+    })
 
     app.use("/api/auth", authRoutes);
     app.use("/api/businesses", businessRoutes);

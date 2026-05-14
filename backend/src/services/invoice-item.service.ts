@@ -56,7 +56,7 @@ export const updateInvoiceItem = async (
   if (invoice instanceof CustomError) return invoice;
 
   const nextItem = withAmount({ ...item, ...payload, invoiceId: item.invoiceId });
-  const { id, ...updates } = nextItem;
+  const { id: _id, ...updates } = nextItem;
 
   const [updatedItem] = await db
     .update(InvoiceItemModel)

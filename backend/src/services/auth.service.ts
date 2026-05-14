@@ -12,10 +12,10 @@ const userEmailExists = async (email:string)=> await db.select().from(UserModel)
 
 const sanitizeUser =  (user:any)=>{
     const {
-        passwordHash,
-        emailVerificationTokenHash,
-        passwordResetTokenHash,
-        passwordResetExpiresAt,
+        passwordHash: _passwordHash,
+        emailVerificationTokenHash: _emailVerificationTokenHash,
+        passwordResetTokenHash: _passwordResetTokenHash,
+        passwordResetExpiresAt: _passwordResetExpiresAt,
         ...rest
     } = user;
     return rest;
