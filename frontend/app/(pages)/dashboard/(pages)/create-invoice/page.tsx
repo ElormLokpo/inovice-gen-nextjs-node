@@ -2,9 +2,17 @@
 import { Cbutton } from "@/app/components/shared/button";
 import { CInput } from "@/app/components/shared/input";
 import { ArrowCircleDownIcon, PencilSimpleLineIcon, PlusIcon } from "@phosphor-icons/react";
+import { useSideModal } from "@/app/store";
+import AddBusinessForm from "./business-operations";
+import { SideModal } from "../../components/side-modal";
 
 
 export default function CreateInvoicePage() {
+    const setModalContent = useSideModal((state) => state.setModalContent)
+
+    const handleAddBusiness = () => {
+        setModalContent(<SideModal heading="Add Business" content={<AddBusinessForm />} />)
+    }
 
     return (
         <div className="px-7 grid grid-cols-2 gap-2">
@@ -14,7 +22,7 @@ export default function CreateInvoicePage() {
 
                     <div className="flex gap-2 items-center">
                         <div>
-                            <select className="text-xs text-zinc-300 border w-30 border-zinc-600 p-3 rounded-lg">
+                            <select className="text-xs text-zinc-300 border w-30 border-zinc-600 py-3 px-3 rounded-2xl">
                                 <option>
 
                                     iMark Consult
@@ -22,7 +30,7 @@ export default function CreateInvoicePage() {
 
                             </select>
                         </div>
-                        <Cbutton buttonType="standard" variant="primary" size="sm" label="Add Compnay" icon={<PlusIcon size={12} />} />
+                        <Cbutton handler={handleAddBusiness} buttonType="standard" variant="primary" size="sm" label="Add Business" icon={<PlusIcon size={12} />} />
                     </div>
                 </div>
 
@@ -154,7 +162,7 @@ export default function CreateInvoicePage() {
                     </div>
                 </div>
             </div>
-            <div className="border border-zinc-700 p-5 rounded-xl">
+            <div className="border border-zinc-700 p-3 rounded-xl">
 
                 <div className="flex mb-3 justify-between border-b pb-4 border-zinc-600 ">
                     <div className="text-lg font-semibold">Invoice Preview</div>
@@ -165,7 +173,7 @@ export default function CreateInvoicePage() {
                     </div>
                 </div>
 
-                <div className="bg-zinc-800/80 p-3 rounded-2xl ">
+                <div className="bg-zinc-800/50 p-2 rounded-2xl ">
                     <div className="flex justify-between text-xs border-b p-2 mb-5 border-zinc-600">
                         <div><span className="text-zinc-400">Date of issue: </span>November 20, 2026</div>
                         <div><span className="text-zinc-400">Date of issue: </span>November 20, 2026</div>
@@ -182,7 +190,7 @@ export default function CreateInvoicePage() {
                         </div>
                     </div>
 
-                    <div className="p-2 bg-zinc-700/80 mb-10 text-xs flex justify-between mb-4 rounded-xl border border-zinc-600/50">
+                    <div className="p-2 bg-zinc-800/50 mb-10 text-xs flex justify-between mb-4 rounded-xl border border-zinc-600/50">
                         <div className="flex flex-col gap-1">
                             <span className="text-zinc-400">Send to:</span>
                             <span className="">Sam Smith</span>

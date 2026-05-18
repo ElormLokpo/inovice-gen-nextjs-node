@@ -7,7 +7,7 @@ import { FieldErrors, UseFormRegister, FieldValues, Path } from "react-hook-form
 const inputVariants = cva("w-full transition-colors  border border-zinc-700 focus:outline-none focus:border-emerald-500", {
     variants: {
         variant: {
-            auth: "bg-zinc-900 rounded-3xl px-6 py-5",
+            auth: "bg-black rounded-3xl px-6 py-5",
             default: "bg-transparent px-4 py-3 rounded-xl text-zinc-100"
         }
     },
@@ -48,7 +48,7 @@ export const CInput = <T extends FieldValues>({
 
     if (inputType === "search") {
         return (
-            <div className={cn("bg-zinc-900 flex items-center gap-2 border border-zinc-700 px-4 py-3 rounded-xl w-full max-w-[20rem]", className)}>
+            <div className={cn("bg-black flex items-center gap-2 border border-zinc-700 px-4 py-3 rounded-xl w-full max-w-[20rem]", className)}>
                 <MagnifyingGlassIcon size={20} className="text-zinc-400" />
                 <input
                     placeholder={placeholder || "Search"}

@@ -27,6 +27,7 @@ interface IbuttonProps extends VariantProps<typeof buttonVariants> {
     label?: string,
     className?: string,
     disabled?: boolean,
+    handler?:()=>void
 }
 
 export const Cbutton = ({
@@ -36,11 +37,12 @@ export const Cbutton = ({
     variant,
     size,
     className,
-    disabled
+    disabled,
+    handler
 }: IbuttonProps) => {
     const buttonTypes: Record<string, ReactElement> = {
         "standard": (
-            <button disabled={disabled} className={cn(buttonVariants({ variant, size }), className)}>
+            <button onClick={handler} disabled={disabled} className={cn(buttonVariants({ variant, size }), className)}>
                 {icon}
                 {label}
             </button>

@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware';
 
@@ -41,16 +42,12 @@ export const useAuthStore = create<AuthState>()(
   }
 ))
 
-interface SideModalState{
-    isOpen:boolean;
-    openModal:()=>void;
-    closeModal:()=>void;
-    toggleModal:()=>void;
+interface SideModalState{   
+    modalContent:ReactElement | null;
+    setModalContent:(content:ReactElement | null)=>void;
 }
 
 export const useSideModal = create<SideModalState>()((set)=>({
-    isOpen:false,
-    openModal:()=>set({isOpen:true}),
-    closeModal:()=>set({isOpen:false}),
-    toggleModal:()=>set((state)=>({isOpen:!state.isOpen}))
+    modalContent:null,
+    setModalContent: (content:ReactElement | null)=>set({modalContent:content})
 }))

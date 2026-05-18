@@ -11,7 +11,7 @@ export const TopNav = () => {
 
 
     return (
-        <div className="bg-zinc-900 border-b border-zinc-700 py-3  px-4 flex justify-between">
+        <div className="bg-black border-b border-zinc-700 py-3  px-4 flex justify-between">
             <div className="flex gap-1">
                 <div className="border border-zinc-700 text-zinc-100 rounded-lg py-1 px-3 hover:cursor-pointer hover:bg-zinc-700 flex gap-2 items-center">
                     <CaretLeftIcon size={15} />
