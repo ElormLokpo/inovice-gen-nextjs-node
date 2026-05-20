@@ -35,7 +35,7 @@ export default function ConfirmEmailPage() {
 
                 <div className="space-y-6">
                     {token && (
-                        <div className="rounded-3xl border border-zinc-700 bg-zinc-900 px-6 py-5 text-sm text-zinc-300">
+                        <div className="rounded-3xl border border-zinc-800 bg-zinc-900 px-6 py-5 text-sm text-zinc-300">
                             {isPending && "Working on it..."}
                             {isSuccess && "Email confirmed. Redirecting you to sign in."}
                         </div>

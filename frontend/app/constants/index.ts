@@ -11,6 +11,8 @@ export const BACKEND_URLS = {
     RESET_PASSWORD: "/api/auth/reset-password",
     CONFIRM_EMAIL: "/api/auth/confirm-email",
     RESEND_CONFIRMATION: "/api/auth/resend-confirmation",
+    CLOUDINARY_SIGNATURE: "/api/uploads/cloudinary/signature",
+    BUSINESSES: "/api/businesses",
 }
 
 export const FRONTEND_URLS = {

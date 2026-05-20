@@ -17,3 +17,7 @@ services:
         sync: false
       - key: FRONTEND_URL
         sync: false
+      - key: CLOUDINARY_URL
+        sync: false
+      - key: CLOUDINARY_FOLDER
+        value: invoice-generation

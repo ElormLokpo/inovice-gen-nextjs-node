@@ -27,7 +27,11 @@ interface IbuttonProps extends VariantProps<typeof buttonVariants> {
     label?: string,
     className?: string,
     disabled?: boolean,
-    handler?:()=>void
+    handler?: () => void,
+    formId?: string,
+    type?: "submit" | "reset" | "button" | undefined,
+    loadingText?:string,
+    isLoading?:boolean
 }
 
 export const Cbutton = ({
@@ -38,13 +42,17 @@ export const Cbutton = ({
     size,
     className,
     disabled,
-    handler
+    handler,
+    type = "button",
+    formId, 
+    loadingText,
+    isLoading
 }: IbuttonProps) => {
     const buttonTypes: Record<string, ReactElement> = {
         "standard": (
-            <button onClick={handler} disabled={disabled} className={cn(buttonVariants({ variant, size }), className)}>
+            <button form={formId} type={type} onClick={handler} disabled={disabled || isLoading} className={cn(buttonVariants({ variant, size }), className)}>
                 {icon}
-                {label}
+                {isLoading ? <span className="">{loadingText}</span> : label}
             </button>
         )
     }

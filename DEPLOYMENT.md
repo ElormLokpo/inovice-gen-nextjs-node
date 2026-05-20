@@ -21,6 +21,8 @@ Required environment variables:
 - `DATABASE_URL`
 - `JWT_SECRET`
 - `FRONTEND_URL`
+- `CLOUDINARY_URL`
+- `CLOUDINARY_FOLDER` optional
 - `PORT=5000`
 
 For deploy hooks, add these GitHub repository secrets:
@@ -35,6 +37,7 @@ Create the Vercel project from the `frontend` directory.
 Required environment variable:
 
 - `NEXT_PUBLIC_BACKEND_URL`
+- `NEXT_PUBLIC_CLOUDINARY_FOLDER` optional
 
 For deploy hooks, add these GitHub repository secrets:
 

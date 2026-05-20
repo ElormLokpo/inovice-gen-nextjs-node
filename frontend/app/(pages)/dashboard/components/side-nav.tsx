@@ -35,7 +35,7 @@ export const DashboardSideNav = () => {
         <div className="h-screen">
 
 
-            <div className="h-full  border-r border-zinc-700 bg-black py-10 px-2">
+            <div className="h-full  border-r border-zinc-800 bg-black py-10 px-2">
                 <div className="flex justify-center items-center mb-[5rem]">
                     <div className="mb-[4rem]">
                         <span className="text-sm text-zinc-100 font-semibold">Invoi<span className="text-emerald-500">Gen</span></span>

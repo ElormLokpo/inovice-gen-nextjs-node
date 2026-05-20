@@ -33,3 +33,26 @@ export const ResetPasswordSchema = z.object({
 })
 
 export type ResetPasswordSchemaType = z.infer<typeof ResetPasswordSchema>
+
+
+export const AddBusinessSchema = z.object({
+ 
+  name: z.string().min(1, "Business name is required"),
+  
+  logoUrl: z.url("Invalid logo URL").or(z.literal("")),
+  
+  email: z.email("Invalid email address").nullable().or(z.literal("")),
+  
+  phone: z.string().nullable().or(z.literal("")),
+  
+  address: z.string().nullable().or(z.literal("")),
+  city: z.string().nullable().or(z.literal("")),
+  country: z.string().nullable().or(z.literal("")),
+  taxId: z.string().nullable().or(z.literal("")),
+  
+ 
+  currency: z.string().min(1, "Currency is required"),
+});
+
+
+export type AddBusinessSchemaType = z.infer<typeof AddBusinessSchema>;
