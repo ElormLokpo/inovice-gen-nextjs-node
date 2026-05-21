@@ -22,14 +22,16 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             <div className="col-span-17 flex h-full w-full">
                 
               
-                <div className="bg-black flex-1 min-w-0">
-                    <div className="mb-1">
+                <div className="bg-black flex-1 min-w-0 h-full flex flex-col overflow-hidden">
+                    <div className="mb-1 flex-shrink-0">
                         <TopNav />
                     </div>
-                    <div>
+                    <div className="flex-shrink-0">
                         <Search />
                     </div>
-                    {children}
+                    <main className="flex-1 min-h-0 overflow-y-auto pb-8">
+                        {children}
+                    </main>
                 </div>
 
              

@@ -44,10 +44,16 @@ export const useAuthStore = create<AuthState>()(
 
 interface SideModalState{   
     modalContent:ReactElement | null;
+    isSubmitting:boolean;
+    loadingText?:string;
     setModalContent:(content:ReactElement | null)=>void;
+    setSubmitState:(state:{isSubmitting:boolean; loadingText?:string})=>void;
 }
 
 export const useSideModal = create<SideModalState>()((set)=>({
     modalContent:null,
-    setModalContent: (content:ReactElement | null)=>set({modalContent:content})
+    isSubmitting:false,
+    loadingText:undefined,
+    setModalContent: (content:ReactElement | null)=>set({modalContent:content, isSubmitting:false, loadingText:undefined}),
+    setSubmitState: ({isSubmitting, loadingText})=>set({isSubmitting, loadingText})
 }))

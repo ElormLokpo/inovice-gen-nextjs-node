@@ -2,13 +2,19 @@ import { IoMdClose } from "react-icons/io";
 import { useSideModal } from "@/app/store";
 import { ReactNode } from "react";
 import { Cbutton } from "@/app/components/shared/button";
+import { cn } from "@/app/lib/utils";
 
 
-export const SideModal = ({ content, heading, formId, isLoading, loadingText }: { content: ReactNode, heading: string,loadingText?:string, formId:string , isLoading?:boolean}) => {
+export const SideModal = ({ content, heading, formId, isLoading, loadingText, deleteHandler }: { content: ReactNode, heading: string,loadingText?:string, formId?:string , isLoading?:boolean, deleteHandler?: () => void}) => {
     const setModalContent = useSideModal((state) => state.setModalContent)
+    const isSubmitting = useSideModal((state) => state.isSubmitting)
+    const modalLoadingText = useSideModal((state) => state.loadingText)
     const handleCloseModal = () => {
         setModalContent(null)
     }
+
+    const submitIsLoading = isLoading || isSubmitting;
+    const submitLoadingText = modalLoadingText || loadingText || `${heading}...`;
 
     return (
         <div>
@@ -31,13 +37,14 @@ export const SideModal = ({ content, heading, formId, isLoading, loadingText }: 
                     <div>
                         <Cbutton
                             formId={formId}
-                            type="submit"
+                            type={deleteHandler ? "button" : "submit"}
                             buttonType="standard"
                             variant="primary"
-                            className="text-xs px-6 py-3"
+                            className={cn("text-xs px-6 py-3", deleteHandler ? "bg-red-500 hover:bg-red-600" : "")}
+                            handler={deleteHandler}
                             label={heading}
-                            isLoading={isLoading}
-                            loadingText={loadingText}
+                            isLoading={submitIsLoading}
+                            loadingText={submitLoadingText}
                         />
                     </div>
                     <Cbutton handler={handleCloseModal} buttonType="standard" variant="secondary" className="text-xs px-6 py-3" label="Cancel" />

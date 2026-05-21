@@ -5,7 +5,7 @@ import { AddBusinessSchema, AddBusinessSchemaType } from "@/app/schema";
 import { useSideModal } from "@/app/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -36,6 +36,7 @@ export default function AddBusinessForm({
 }) {
     const defaultValues = useMemo(() => businessToFormValues(business), [business]);
     const setModalContent = useSideModal((state) => state.setModalContent);
+    const setSubmitState = useSideModal((state) => state.setSubmitState);
     const { register, handleSubmit, setValue, control, formState: { errors } } = useForm<AddBusinessSchemaType>({
         resolver: zodResolver(AddBusinessSchema),
         defaultValues,
@@ -50,6 +51,15 @@ export default function AddBusinessForm({
         onSuccess: () => setModalContent(null),
     });
     const isSavingBusiness = isCreatingBusiness || isUpdatingBusiness;
+
+    useEffect(() => {
+        setSubmitState({
+            isSubmitting: isSavingBusiness,
+            loadingText: mode === "edit" ? "Saving Business..." : "Adding Business...",
+        });
+
+        return () => setSubmitState({ isSubmitting: false });
+    }, [isSavingBusiness, mode, setSubmitState]);
 
     const handleLogoUpload = async (file?: File) => {
         if (!file) return;
@@ -143,3 +153,17 @@ export default function AddBusinessForm({
 
     )
 }
+
+
+export const DeleteBusinessForm = ({ businessName }: {  businessName:string }) => {
+   
+
+    return (
+        <div>            
+          
+                <div className="font-light text-sm">Are you sure you want to delete {businessName} ? </div>
+
+               
+        </div>
+    )
+}   

@@ -1,13 +1,14 @@
 "use client"
 import { Cbutton } from "@/app/components/shared/button";
 import { CInput } from "@/app/components/shared/input";
-import { Business, useBusinesses } from "@/app/hooks/useBusiness";
+import { Business, useBusinesses, useDeleteBusiness } from "@/app/hooks/useBusiness";
 import { ArrowCircleDownIcon, PencilSimpleLineIcon, PlusIcon } from "@phosphor-icons/react";
 import { useSideModal } from "@/app/store";
-import AddBusinessForm, { ADD_BUSINESS_FORM_ID } from "./business-operations";
+import AddBusinessForm, { ADD_BUSINESS_FORM_ID, DeleteBusinessForm } from "./business-operations";
 import { SideModal } from "../../components/side-modal";
-import { useMemo, useState } from "react";
-
+import { useEffect, useMemo, useState } from "react";
+import { MdDeleteOutline } from "react-icons/md";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 export default function CreateInvoicePage() {
     const setModalContent = useSideModal((state) => state.setModalContent)
@@ -18,8 +19,24 @@ export default function CreateInvoicePage() {
         [businesses, selectedBusinessId],
     );
 
+    const [showBusinessOperationsPopup, setShowBusinessOperationsPopup] = useState(false);
+
+    const setSubmitState = useSideModal((state) => state.setSubmitState);
+    const { mutate: deleteBusiness, isPending: isDeletingBusiness } = useDeleteBusiness({
+        onSuccess: () => setModalContent(null),
+    });
+
+    useEffect(() => {
+        setSubmitState({
+            isSubmitting: isDeletingBusiness,
+            loadingText: "Deleting Business...",
+        });
+
+        return () => setSubmitState({ isSubmitting: false });
+    }, [isDeletingBusiness, setSubmitState]);
+
     const handleAddBusiness = () => {
-        setModalContent(<SideModal formId={ADD_BUSINESS_FORM_ID} heading="Add Business" loadingText="Adding Business" content={<AddBusinessForm formId={ADD_BUSINESS_FORM_ID} />} />)
+        setModalContent(<SideModal formId={ADD_BUSINESS_FORM_ID} heading="Add Business" loadingText="Adding Business..." content={<AddBusinessForm formId={ADD_BUSINESS_FORM_ID} />} />)
     }
 
     const handleEditBusiness = () => {
@@ -31,6 +48,22 @@ export default function CreateInvoicePage() {
                 heading="Edit Business"
                 loadingText="Saving Business"
                 content={<AddBusinessForm formId={ADD_BUSINESS_FORM_ID} mode="edit" business={selectedBusiness} />}
+            />,
+        )
+    }
+
+
+
+
+    const handleDeleteBusiness = () => {
+        if (!selectedBusiness) return;
+
+        setModalContent(
+            <SideModal
+                deleteHandler={() => deleteBusiness(selectedBusiness.id)}
+                heading="Delete Business"
+                loadingText="Deleting Business..."
+                content={<DeleteBusinessForm businessName={selectedBusiness?.name} />}
             />,
         )
     }
@@ -70,17 +103,36 @@ export default function CreateInvoicePage() {
                             <div>
                                 <span className="font-semibold text-zinc-100">Company Details</span>
                             </div>
+
                             <div>
-                                <Cbutton
-                                    handler={handleEditBusiness}
-                                    disabled={!selectedBusiness}
-                                    buttonType="standard"
-                                    variant="secondary"
-                                    size="xs"
-                                    label="Edit Details"
-                                    icon={<PencilSimpleLineIcon size={12} />}
-                                />
+                                <div className="cursor-pointer" onClick={() => setShowBusinessOperationsPopup((prev: boolean) => !prev)}>
+                                    <BsThreeDotsVertical />
+                                </div>
+                                {showBusinessOperationsPopup && <div className="absolute z-10  bg-zinc-900 p-2 border border-zinc-800 rounded-xl">
+                                    <Cbutton
+                                        handler={handleDeleteBusiness}
+                                        disabled={!selectedBusiness}
+                                        buttonType="standard"
+                                        variant="secondary"
+                                        className=" border-0 text-red-700"
+                                        size="xs"
+                                        label="Delete Business"
+                                        icon={<MdDeleteOutline size={12} />}
+                                    />
+
+                                    <Cbutton
+                                        handler={handleEditBusiness}
+                                        disabled={!selectedBusiness}
+                                        buttonType="standard"
+                                        variant="secondary"
+                                        className="border-0"
+                                        size="xs"
+                                        label="Edit Details"
+                                        icon={<PencilSimpleLineIcon size={12} />}
+                                    />
+                                </div>}
                             </div>
+
                         </div>
                         <BusinessDetails business={selectedBusiness} />
                     </div>
@@ -207,10 +259,10 @@ export default function CreateInvoicePage() {
 
                         </div>
                         <div className="flex flex-col gap-1 text-right">
-                            <span className="text-zinc-400">Send to:</span>
-                            <span className="">Sam Smith</span>
-                            <span className="text-zinc-400">123 Cresant Road, Airport City</span>
-                            <span className="text-zinc-400">+233 34 5464</span>
+                            <span className="text-zinc-400">Sent from:</span>
+                            <span className="">{selectedBusiness ? selectedBusiness?.name : "Business Name"}</span>
+                            <span className="text-zinc-400">{selectedBusiness ? selectedBusiness?.address : "Business Address"}</span>
+                            <span className="text-zinc-400">{selectedBusiness ? selectedBusiness?.phone : "Business Phone"}</span>
 
                         </div>
                     </div>
