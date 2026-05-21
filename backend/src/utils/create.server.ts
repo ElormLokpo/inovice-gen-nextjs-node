@@ -7,6 +7,7 @@ import { clientRoutes } from '../routes/client.routes';
 import { invoiceItemRoutes } from '../routes/invoice-item.routes';
 import { invoiceRoutes } from '../routes/invoice.routes';
 import { paymentRoutes } from '../routes/payment.routes';
+import { uploadRoutes } from '../routes/upload.routes';
 
 
 export const CreateServer = ()=>{
@@ -30,6 +31,7 @@ export const CreateServer = ()=>{
     app.use("/api/invoices", invoiceRoutes);
     app.use("/api/invoice-items", invoiceItemRoutes);
     app.use("/api/payments", paymentRoutes);
+    app.use("/api/uploads", uploadRoutes);
 
     app.use(ErrorMiddleware)
 

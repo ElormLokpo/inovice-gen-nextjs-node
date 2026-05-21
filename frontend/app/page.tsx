@@ -27,8 +27,8 @@ export default function Home() {
 
 
           <div className="flex items-center gap-x-4">
-            <button  onClick={()=>router.push(FRONTEND_URLS.LOGIN)} className="px-6 py-2.5 text-xs font-medium hover:bg-white/5 rounded-2xl transition">Log in</button>
-            <button onClick={()=>router.push(FRONTEND_URLS.REGISTER)} className="px-6 py-2.5 text-sm bg-emerald-500 hover:bg-emerald-600 text-black font-semibold rounded-2xl transition">Start for free</button>
+            <button onClick={() => router.push(FRONTEND_URLS.LOGIN)} className="px-6 py-2.5 text-xs font-medium hover:bg-white/5 rounded-2xl transition">Log in</button>
+            <button onClick={() => router.push(FRONTEND_URLS.REGISTER)} className="px-6 py-2.5 text-sm bg-emerald-500 hover:bg-emerald-600 text-black font-semibold rounded-2xl transition">Start for free</button>
           </div>
         </div>
       </nav>
@@ -76,7 +76,7 @@ export default function Home() {
 
 
             <div className="relative">
-              <div className="bg-zinc-900 border border-zinc-700 rounded-3xl overflow-hidden shadow-2xl shadow-emerald-500/10">
+              <div className="bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden shadow-2xl shadow-emerald-500/10">
                 <div className="bg-zinc-950 px-6 py-4 flex items-center justify-between border-b border-zinc-800">
                   <div className="flex items-center gap-x-3">
                     <div className="w-7 h-7 bg-emerald-500 rounded-2xl flex items-center justify-center text-xs font-bold">N</div>
@@ -121,7 +121,7 @@ export default function Home() {
                       <tr>
                         <td className="py-4">Design System</td>
                         <td className="text-right">$120.00</td>
-                        <td className="text-right font-medium">$120.00</td>
+                        <td className="text-right font-medium">GHC120.00</td>
                       </tr>
                     </tbody>
                   </table>
@@ -130,7 +130,7 @@ export default function Home() {
                     <div className="w-64 space-y-3">
                       <div className="pt-3 border-t border-zinc-300 flex justify-between font-semibold">
                         <span>Total</span>
-                        <span className="text-xl">$215.09</span>
+                        <span className="text-xl">GHC215.09</span>
                       </div>
                     </div>
                   </div>
