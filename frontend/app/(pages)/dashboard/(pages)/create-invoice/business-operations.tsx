@@ -87,31 +87,31 @@ export default function AddBusinessForm({
         <div>
             <form onSubmit={handleSubmit(submitHandler)} id={formId}>
                 <div className="mb-5">
-                    <CInput register={register} errors={errors} name="name" variant={"default"} inputType="form" label="Business Name:" />
+                    <CInput register={register} errors={errors} name="name" variant={"default"} inputType="formInput" label="Business Name:" />
                 </div>
 
                 <div className="flex gap-4 mb-5 ">
-                    <CInput register={register} errors={errors} name="address" variant={"default"} inputType="form" label="Address:" />
-                    <CInput register={register} errors={errors} name="city" variant={"default"} inputType="form" label="City:" />
+                    <CInput register={register} errors={errors} name="address" variant={"default"} inputType="formInput" label="Address:" />
+                    <CInput register={register} errors={errors} name="city" variant={"default"} inputType="formInput" label="City:" />
 
                 </div>
 
                 <div className="mb-5">
-                    <CInput register={register} errors={errors} name="email" variant={"default"} inputType="form" label="Email:" />
+                    <CInput register={register} errors={errors} name="email" variant={"default"} inputType="formInput" label="Email:" />
                 </div>
 
                 <div className="flex gap-4 mb-5">
-                    <CInput register={register} errors={errors} name="country" variant={"default"} inputType="form" label="Country:" />
-                    <CInput register={register} errors={errors} name="phone" variant={"default"} inputType="form" label="Phone Number:" />
+                    <CInput register={register} errors={errors} name="country" variant={"default"} inputType="formInput" label="Country:" />
+                    <CInput register={register} errors={errors} name="phone" variant={"default"} inputType="formInput" label="Phone Number:" />
 
                 </div>
 
                 <div className="mb-5">
-                    <CInput register={register} errors={errors} name="taxId" variant={"default"} inputType="form" label="Tax ID:" />
+                    <CInput register={register} errors={errors} name="taxId" variant={"default"} inputType="formInput" label="Tax ID:" />
                 </div>
 
                 <div className="flex gap-4 mb-5">
-                    <CInput register={register} errors={errors} name="currency" variant={"default"} inputType="form" label="Currency:" />
+                    <CInput register={register} errors={errors} name="currency" variant={"default"} inputType="formInput" label="Currency:" />
                     <div className="flex flex-col gap-2 w-full">
                         <label className="block text-xs mb-2 text-zinc-100">Logo:</label>
                         <input
@@ -160,10 +160,7 @@ export const DeleteBusinessForm = ({ businessName }: {  businessName:string }) =
 
     return (
         <div>            
-          
                 <div className="font-light text-sm">Are you sure you want to delete {businessName} ? </div>
-
-               
         </div>
     )
 }   

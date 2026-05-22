@@ -13,6 +13,7 @@ export const BACKEND_URLS = {
     RESEND_CONFIRMATION: "/api/auth/resend-confirmation",
     CLOUDINARY_SIGNATURE: "/api/uploads/cloudinary/signature",
     BUSINESSES: "/api/businesses",
+    CLIENTS: "/api/clients",
 }
 
 export const FRONTEND_URLS = {

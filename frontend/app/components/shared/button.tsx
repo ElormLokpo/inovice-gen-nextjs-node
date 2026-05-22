@@ -3,7 +3,7 @@ import { cn } from "@/app/lib/utils"
 import { cva, type VariantProps } from "class-variance-authority"
 import { ReactElement } from "react"
 
-const buttonVariants = cva("rounded-lg transition-transform active:scale-[0.98] gap-2 flex items-center justify-center cursor-pointer transition-all duration-300 ease-in-out",
+const buttonVariants = cva("rounded-lg transition-transform active:scale-[0.98] gap-2 flex items-center justify-center cursor-pointer transition-all duration-300 ease-in-out disabled:opacity-50 disabled:pointer-events-none",
     {
         variants: {
             variant: {
@@ -31,7 +31,8 @@ interface IbuttonProps extends VariantProps<typeof buttonVariants> {
     formId?: string,
     type?: "submit" | "reset" | "button" | undefined,
     loadingText?:string,
-    isLoading?:boolean
+    isLoading?:boolean, 
+   
 }
 
 export const Cbutton = ({
@@ -46,7 +47,8 @@ export const Cbutton = ({
     type = "button",
     formId, 
     loadingText,
-    isLoading
+    isLoading,
+    
 }: IbuttonProps) => {
     const buttonTypes: Record<string, ReactElement> = {
         "standard": (

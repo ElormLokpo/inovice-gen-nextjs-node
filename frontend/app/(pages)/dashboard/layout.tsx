@@ -11,15 +11,15 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     const modalContent = useSideModal((state) => state.modalContent);
 
     return (
-        <div className="bg-black h-screen grid grid-cols-18 overflow-hidden">
+        <div className="bg-black h-dvh min-h-0 grid grid-cols-18 overflow-hidden">
 
           
-            <div className="col-span-1">
+            <div className="col-span-1 min-h-0">
                 <DashboardSideNav />
             </div>
 
          
-            <div className="col-span-17 flex h-full w-full">
+            <div className="col-span-17 flex h-full min-h-0 w-full overflow-hidden">
                 
               
                 <div className="bg-black flex-1 min-w-0 h-full flex flex-col overflow-hidden">
@@ -29,14 +29,14 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                     <div className="flex-shrink-0">
                         <Search />
                     </div>
-                    <main className="flex-1 min-h-0 overflow-y-auto pb-8">
+                    <main className="flex-1 min-h-0 overflow-y-auto overscroll-contain pb-8">
                         {children}
                     </main>
                 </div>
 
              
                 <div className={cn(
-                    "h-full transition-all duration-300 ease-in-out transform",
+                    "h-full min-h-0 transition-all duration-300 ease-in-out transform",
                     modalContent 
                         ? "w-[23.5%] opacity-100 translate-x-0 pointer-events-auto" 
                         : "w-0 opacity-0 translate-x-10 pointer-events-none"

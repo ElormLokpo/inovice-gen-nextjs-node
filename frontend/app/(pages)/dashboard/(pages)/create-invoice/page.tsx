@@ -1,14 +1,20 @@
 "use client"
 import { Cbutton } from "@/app/components/shared/button";
-import { CInput } from "@/app/components/shared/input";
+import { InvoiceItemsOperationsTable } from "./invoice-items-operations";
 import { Business, useBusinesses, useDeleteBusiness } from "@/app/hooks/useBusiness";
+
+import { Client, useClients, useDeleteClient } from "@/app/hooks/useClient";
 import { ArrowCircleDownIcon, PencilSimpleLineIcon, PlusIcon } from "@phosphor-icons/react";
 import { useSideModal } from "@/app/store";
+
 import AddBusinessForm, { ADD_BUSINESS_FORM_ID, DeleteBusinessForm } from "./business-operations";
 import { SideModal } from "../../components/side-modal";
 import { useEffect, useMemo, useState } from "react";
+
 import { MdDeleteOutline } from "react-icons/md";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { AddClientForm} from "./client-operations";
+import { RateOperationsForm } from "./rate-operations";
 
 export default function CreateInvoicePage() {
     const setModalContent = useSideModal((state) => state.setModalContent)
@@ -18,22 +24,17 @@ export default function CreateInvoicePage() {
         () => businesses.find((business) => business.id === selectedBusinessId) ?? businesses[0],
         [businesses, selectedBusinessId],
     );
+    const { data: clients = [], isLoading: isLoadingClients } = useClients(selectedBusiness?.id);
+    const [selectedClientId, setSelectedClientId] = useState("");
+    const selectedClient = useMemo(
+        () => clients.find((client) => client.id === selectedClientId) ?? clients[0],
+        [clients, selectedClientId],
+    );
 
     const [showBusinessOperationsPopup, setShowBusinessOperationsPopup] = useState(false);
 
     const setSubmitState = useSideModal((state) => state.setSubmitState);
-    const { mutate: deleteBusiness, isPending: isDeletingBusiness } = useDeleteBusiness({
-        onSuccess: () => setModalContent(null),
-    });
 
-    useEffect(() => {
-        setSubmitState({
-            isSubmitting: isDeletingBusiness,
-            loadingText: "Deleting Business...",
-        });
-
-        return () => setSubmitState({ isSubmitting: false });
-    }, [isDeletingBusiness, setSubmitState]);
 
     const handleAddBusiness = () => {
         setModalContent(<SideModal formId={ADD_BUSINESS_FORM_ID} heading="Add Business" loadingText="Adding Business..." content={<AddBusinessForm formId={ADD_BUSINESS_FORM_ID} />} />)
@@ -52,7 +53,9 @@ export default function CreateInvoicePage() {
         )
     }
 
-
+    const { mutate: deleteBusiness, isPending: isDeletingBusiness } = useDeleteBusiness({
+        onSuccess: () => setModalContent(null),
+    });
 
 
     const handleDeleteBusiness = () => {
@@ -68,6 +71,20 @@ export default function CreateInvoicePage() {
         )
     }
 
+    const {  isPending: isDeletingClient } = useDeleteClient()
+
+
+      useEffect(() => {
+                const isDeleting = isDeletingBusiness || isDeletingClient;
+                setSubmitState({
+                    isSubmitting: isDeleting,
+                    loadingText: isDeletingClient ? "Deleting Client..." : "Deleting Business...",
+                });
+        
+                return () => setSubmitState({ isSubmitting: false });
+            }, [isDeletingBusiness, isDeletingClient, setSubmitState]);
+
+
     return (
         <div className="px-7 grid grid-cols-2 gap-2">
             <div className=" border border-zinc-800 rounded-xl">
@@ -77,10 +94,13 @@ export default function CreateInvoicePage() {
                     <div className="flex gap-2 items-center">
                         <div>
                             <select
-                                value={selectedBusinessId || selectedBusiness?.id || ""}
-                                onChange={(event) => setSelectedBusinessId(event.target.value)}
+                                value={selectedBusiness?.id || ""}
+                                onChange={(event) => {
+                                    setSelectedBusinessId(event.target.value);
+                                    setSelectedClientId("");
+                                }}
                                 disabled={isLoadingBusinesses || businesses.length === 0}
-                                className="text-xs text-zinc-300 border w-30 border-zinc-600 py-3 px-3 rounded-2xl bg-black disabled:opacity-60"
+                                className="text-xs text-zinc-300 border w-60 border-zinc-600 py-3 px-3 rounded-2xl bg-black disabled:opacity-60"
                             >
                                 {businesses.length === 0 ? (
                                     <option value="">No business yet</option>
@@ -138,86 +158,18 @@ export default function CreateInvoicePage() {
                     </div>
 
                     <div className="mb-4 w-full p-3 rounded-xl">
-
-                        <div className="grid grid-cols-2 gap-3 ">
-                            <div className="flex flex-col gap-1 mb-2">
-                                <CInput variant={"default"} label="Sample Label:" inputType="form" />
-                            </div>
-
-                            <div className="flex flex-col gap-1 mb-2">
-                                <CInput variant={"default"} label="Sample Label:" inputType="form" />
-                            </div>
-                            <div className="flex flex-col gap-1 mb-2">
-                                <CInput variant={"default"} label="Sample Label:" inputType="form" />
-                            </div>
-                            <div className="flex flex-col gap-1 mb-2">
-                                <CInput variant={"default"} label="Sample Label:" inputType="form" />
-                            </div>
-
-                        </div>
+                            <RateOperationsForm />
                     </div>
 
-                    <div className="bg-zinc-800/50 mb-4 w-full  rounded-xl">
-                        <div className="flex justify-between p-4 items-center pb-1 border-b mb-4 border-zinc-800">
-                            <div>
-                                <span className="font-semibold text-sm text-zinc-100">Client Details</span>
-                            </div>
 
-                        </div>
-                        <div className="grid grid-cols-3 gap-3 p-4">
-                            <div className="flex flex-col gap-1 mb-2">
-                                <CInput variant={"default"} label="Sample Label:" inputType="form" />
-                            </div>
+                    <>
+                        <AddClientForm businessId={selectedBusiness?.id} formId="add-client-inline-form" showInlineSubmit selectedBusiness={selectedBusiness} selectedClient={selectedClient} clients={clients} setSelectedClientId={setSelectedClientId} isLoadingClients={isLoadingClients} />
 
-                            <div className="flex flex-col gap-1 mb-2">
-                                <CInput variant={"default"} label="Sample Label:" inputType="form" />
-                            </div>
-                            <div className="flex flex-col gap-1 mb-2">
-                                <CInput variant={"default"} label="Sample Label:" inputType="form" />
-                            </div>
-                            <div className="flex flex-col gap-1 mb-2">
-                                <CInput variant={"default"} label="Sample Label:" inputType="form" />
-                            </div>
+                    </>
 
-                            <div className="flex flex-col gap-1 mb-2">
-                                <CInput variant={"default"} label="Sample Label:" inputType="form" />
-                            </div>
-
-                            <div className="flex flex-col gap-1 mb-2">
-                                <CInput variant={"default"} label="Sample Label:" inputType="form" />
-                            </div>
-
-
-
-                        </div>
-                    </div>
-                    <div>
-                        <div className="flex bg-emerald-800 text-xs rounded-t-xl text-emerald-100">
-                            <div className="w-[20%] py-3 px-2 border-r border-emerald-700">Part Number</div>
-                            <div className="w-[50%] py-3 px-2 border-r border-emerald-700">Description</div>
-                            <div className="w-[10%] py-3 px-2 border-r border-emerald-700">Unit Price</div>
-                            <div className="w-[10%] py-3 px-2 border-r border-emerald-700">Quantity</div>
-                            <div className="w-[20%] py-3 px-2">Total(GHC)</div>
-                        </div>
-                        <div className="flex text-xs border-b border-zinc-600">
-                            <div className="w-[20%] py-3 px-2 border-l border-r border-zinc-600">Part Number</div>
-                            <div className="w-[50%] py-3 px-2 border-r border-zinc-600">Description</div>
-                            <div className="w-[10%] py-3 px-2 border-r border-zinc-600">Unit Price</div>
-                            <div className="w-[10%] py-3 px-2 border-r border-zinc-600">Quantity</div>
-                            <div className="w-[20%] py-3 px-2 border-r border-zinc-600">Total(GHC)</div>
-                        </div>
-                        <div className="flex text-xs border-zinc-600">
-                            <div className="w-[20%] py-3 px-2  border-zinc-600"></div>
-                            <div className="w-[50%] py-3 px-2 border-zinc-600"></div>
-                            <div className="w-[10%] py-3 px-2 border-zinc-600"></div>
-                            <div className="w-[10%] py-3 px-2 border-zinc-600"></div>
-                            <div className="w-[20%] py-3 px-2 border-r border-l border-b border-zinc-600 flex  gap-1">
-                                <Cbutton buttonType="standard" variant="secondary" size="xs" label="Add" />
-                                <Cbutton buttonType="standard" className="bg-red-100 border-red-400 hover:bg-red-300 text-red-700" variant="secondary" size="xs" label="Discard" />
-
-                            </div>
-                        </div>
-                    </div>
+                    <>
+                        <InvoiceItemsOperationsTable />
+                    </>
                 </div>
             </div>
             <div className="border border-zinc-800 p-3 rounded-xl">
@@ -251,9 +203,9 @@ export default function CreateInvoicePage() {
                     <div className="p-2 bg-zinc-800/50 mb-10 text-xs flex justify-between mb-4 rounded-xl border border-zinc-600/50">
                         <div className="flex flex-col gap-1">
                             <span className="text-zinc-400">Send to:</span>
-                            <span className="">Sam Smith</span>
-                            <span className="text-zinc-400">123 Cresant Road, Airport City</span>
-                            <span className="text-zinc-400">+233 34 5464</span>
+                            <span className="">{selectedClient ? selectedClient.name : "Client Name"}</span>
+                            <span className="text-zinc-400">{selectedClient ? selectedClient.address : "Client Address"}</span>
+                            <span className="text-zinc-400">{selectedClient ? selectedClient.phone : "Client Phone"}</span>
 
 
 
@@ -270,10 +222,10 @@ export default function CreateInvoicePage() {
 
                     <div>
                         <div className="flex bg-emerald-800 text-xs rounded-t-xl text-emerald-100">
-                            <div className="w-[20%] py-3 px-2 border-r border-emerald-700">Part Number</div>
-                            <div className="w-[50%] py-3 px-2 border-r border-emerald-700">Description</div>
-                            <div className="w-[10%] py-3 px-2 border-r border-emerald-700">Unit Price</div>
-                            <div className="w-[10%] py-3 px-2 border-r border-emerald-700">Quantity</div>
+                            <div className="w-[20%] py-3 px-2 border-r border-emerald-500">Part Number</div>
+                            <div className="w-[50%] py-3 px-2 border-r border-emerald-500">Description</div>
+                            <div className="w-[10%] py-3 px-2 border-r border-emerald-500">Unit Price</div>
+                            <div className="w-[10%] py-3 px-2 border-r border-emerald-500">Quantity</div>
                             <div className="w-[20%] py-3 px-2">Total(GHC)</div>
                         </div>
                         <div className="flex text-xs border-b border-zinc-600">
@@ -352,6 +304,36 @@ function BusinessDetails({ business }: { business?: Business }) {
     return (
         <div className="grid grid-cols-3 gap-x-4">
             {businessDetailItems(business).map((item) => (
+                <div className="flex flex-col gap-1 mb-5" key={item.label}>
+                    <span className="text-xs text-zinc-300/80">{item.label}</span>
+                    <span className="text-xs">{item.value || "Not set"}</span>
+                </div>
+            ))}
+        </div>
+    );
+}
+
+const clientDetailItems = (client?: Client) => [
+    { label: "Client Name", value: client?.name },
+    { label: "Email", value: client?.email },
+    { label: "Phone", value: client?.phone },
+    { label: "Address", value: client?.address },
+    { label: "City", value: client?.city },
+    { label: "Country", value: client?.country },
+];
+
+function ClientDetails({ client }: { client?: Client }) {
+    if (!client) {
+        return (
+            <div className="text-xs text-zinc-400">
+                Add a client to populate client details.
+            </div>
+        );
+    }
+
+    return (
+        <div className="grid grid-cols-3 gap-x-4">
+            {clientDetailItems(client).map((item) => (
                 <div className="flex flex-col gap-1 mb-5" key={item.label}>
                     <span className="text-xs text-zinc-300/80">{item.label}</span>
                     <span className="text-xs">{item.value || "Not set"}</span>
