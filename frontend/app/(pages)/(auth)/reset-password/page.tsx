@@ -52,7 +52,7 @@ export default function ResetPasswordPage() {
                                 name="token"
                                 register={register}
                                 errors={errors}
-                                inputType="form"
+                                inputType="formInput"
                                 variant="auth"
                                 placeholder="Paste the token from your email"
                             />
@@ -63,7 +63,7 @@ export default function ResetPasswordPage() {
                             name="password"
                             register={register}
                             errors={errors}
-                            inputType="form"
+                            inputType="formInput"
                             type="password"
                             variant="auth"
                         />
@@ -73,7 +73,7 @@ export default function ResetPasswordPage() {
                             name="confirmPassword"
                             register={register}
                             errors={errors}
-                            inputType="form"
+                            inputType="formInput"
                             type="password"
                             variant="auth"
                         />

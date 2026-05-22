@@ -47,7 +47,7 @@ export default function RegisterPage() {
                                 name="fullName"
                                 register={register}
                                 errors={errors}
-                                inputType="form"
+                                inputType="formInput"
                                 variant="auth"
                             />
                         </div>
@@ -59,7 +59,7 @@ export default function RegisterPage() {
                                 name="email"
                                 register={register}
                                 errors={errors}
-                                inputType="form"
+                                inputType="formInput"
                                 variant="auth"
                             />
                         </div>
@@ -72,7 +72,7 @@ export default function RegisterPage() {
                                 name="password"
                                 register={register}
                                 errors={errors}
-                                inputType="form"
+                                inputType="formInput"
                                 type="password"
                                 variant="auth"
                             />

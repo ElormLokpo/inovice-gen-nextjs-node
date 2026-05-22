@@ -37,7 +37,7 @@ export default function ForgotPasswordPage() {
                             name="email"
                             register={register}
                             errors={errors}
-                            inputType="form"
+                            inputType="formInput"
                             variant="auth"
                         />
 

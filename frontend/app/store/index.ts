@@ -57,3 +57,39 @@ export const useSideModal = create<SideModalState>()((set)=>({
     setModalContent: (content:ReactElement | null)=>set({modalContent:content, isSubmitting:false, loadingText:undefined}),
     setSubmitState: ({isSubmitting, loadingText})=>set({isSubmitting, loadingText})
 }))
+
+
+interface RateValueState{
+    rateValues:object;
+    setRateValues:(value:object)=>void;
+}
+
+export const useRateValues = create<RateValueState>((set)=>({
+    rateValues:{},
+    setRateValues:(value:object)=>set({rateValues:value}),
+   
+}))
+
+interface IInvoiceItem {
+    partNumber: string;
+    description: string;
+    unitPrice: number;
+    quantity: number;
+    amount: number;
+}
+
+interface IRateAmounts {
+    nhilAmount: number;
+    getfundAmount: number;
+    covidAmount: number;
+    vatAmount: number;
+    total: number;
+}
+
+export const useInvoiceItems = create<InvoiceItemsState>((set) => ({
+    invoiceItems: [],
+    setInvoiceItems: (value: IInvoiceItem[]) => set({ invoiceItems: value }),
+  
+   
+    
+}))

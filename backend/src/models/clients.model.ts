@@ -19,6 +19,6 @@ export const ClientModel = pgTable("clients", {
   address: text("address"),
   city: text("city"),
   country: text("country"),
-  notes: text("notes"),
+
   ...timestamps
 });
