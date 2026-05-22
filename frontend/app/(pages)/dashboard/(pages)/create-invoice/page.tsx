@@ -221,47 +221,27 @@ export default function CreateInvoicePage() {
 
 
                     <div>
-                        <div className="flex bg-emerald-800 text-xs rounded-t-xl text-emerald-100">
-                            <div className="w-[20%] py-3 px-2 border-r border-emerald-500">Part Number</div>
-                            <div className="w-[50%] py-3 px-2 border-r border-emerald-500">Description</div>
-                            <div className="w-[10%] py-3 px-2 border-r border-emerald-500">Unit Price</div>
-                            <div className="w-[10%] py-3 px-2 border-r border-emerald-500">Quantity</div>
+                        <div className="flex bg-emerald-500 text-zinc-800 text-xs rounded-t-xl">
+                            <div className="w-[20%] py-3 px-2 border-r border-emerald-400">Part Number</div>
+                            <div className="w-[50%] py-3 px-2 border-r border-emerald-400">Description</div>
+                            <div className="w-[10%] py-3 px-2 border-r border-emerald-400">Unit Price</div>
+                            <div className="w-[10%] py-3 px-2 border-r border-emerald-400">Quantity</div>
                             <div className="w-[20%] py-3 px-2">Total(GHC)</div>
                         </div>
                         <div className="flex text-xs border-b border-zinc-600">
-                            <div className="w-[20%] py-3 px-2 border-l border-r border-zinc-600">Part Number</div>
-                            <div className="w-[50%] py-3 px-2 border-r border-zinc-600">Description</div>
-                            <div className="w-[10%] py-3 px-2 border-r border-zinc-600">Unit Price</div>
-                            <div className="w-[10%] py-3 px-2 border-r border-zinc-600">Quantity</div>
-                            <div className="w-[20%] py-3 px-2 border-r border-zinc-600">Total(GHC)</div>
+                            <div className="w-[20%] py-3 px-2 border-l border-r border-zinc-700">Part Number</div>
+                            <div className="w-[50%] py-3 px-2 border-r border-zinc-700">Description</div>
+                            <div className="w-[10%] py-3 px-2 border-r border-zinc-700">Unit Price</div>
+                            <div className="w-[10%] py-3 px-2 border-r border-zinc-700">Quantity</div>
+                            <div className="w-[20%] py-3 px-2 border-r border-zinc-700">Total(GHC)</div>
                         </div>
-                        <div className="flex text-xs border-b border-zinc-600">
-                            <div className="w-[20%] py-3 px-2 border-l border-r border-zinc-600">Part Number</div>
-                            <div className="w-[50%] py-3 px-2 border-r border-zinc-600">Description</div>
-                            <div className="w-[10%] py-3 px-2 border-r border-zinc-600">Unit Price</div>
-                            <div className="w-[10%] py-3 px-2 border-r border-zinc-600">Quantity</div>
-                            <div className="w-[20%] py-3 px-2 border-r border-zinc-600">Total(GHC)</div>
-                        </div>
-                        <div className="flex text-xs border-b border-zinc-600">
-                            <div className="w-[20%] py-3 px-2 border-l border-r border-zinc-600">Part Number</div>
-                            <div className="w-[50%] py-3 px-2 border-r border-zinc-600">Description</div>
-                            <div className="w-[10%] py-3 px-2 border-r border-zinc-600">Unit Price</div>
-                            <div className="w-[10%] py-3 px-2 border-r border-zinc-600">Quantity</div>
-                            <div className="w-[20%] py-3 px-2 border-r border-zinc-600">Total(GHC)</div>
-                        </div>
-                        <div className="flex text-xs border-b border-zinc-600">
-                            <div className="w-[20%] py-3 px-2 border-l border-r border-zinc-600">Part Number</div>
-                            <div className="w-[50%] py-3 px-2 border-r border-zinc-600">Description</div>
-                            <div className="w-[10%] py-3 px-2 border-r border-zinc-600">Unit Price</div>
-                            <div className="w-[10%] py-3 px-2 border-r border-zinc-600">Quantity</div>
-                            <div className="w-[20%] py-3 px-2 border-r border-zinc-600">Total(GHC)</div>
-                        </div>
-                        <div className="flex text-xs border-zinc-600 mb-10">
-                            <div className="w-[20%] py-3 px-2  border-zinc-600"></div>
-                            <div className="w-[50%] py-3 px-2 border-zinc-600"></div>
-                            <div className="w-[10%] py-3 px-2 border-zinc-600"></div>
-                            <div className="w-[10%] py-3 px-2 border-zinc-600"></div>
-                            <div className="w-[20%] py-3 px-2 border-r border-l border-b border-zinc-600 flex  gap-1">
+                        
+                        <div className="flex text-xs border-zinc-700 mb-10">
+                            <div className="w-[20%] py-3 px-2  border-zinc-700"></div>
+                            <div className="w-[50%] py-3 px-2 border-zinc-700"></div>
+                            <div className="w-[10%] py-3 px-2 border-zinc-700"></div>
+                            <div className="w-[10%] py-3 px-2 border-zinc-700"></div>
+                            <div className="w-[20%] py-3 px-2 border-r border-l border-b border-zinc-700 flex  gap-1">
                                 <Cbutton buttonType="standard" variant="secondary" size="xs" label="Add" />
                                 <Cbutton buttonType="standard" className="bg-red-100 border-red-400 hover:bg-red-300 text-red-700" variant="secondary" size="xs" label="Discard" />
 
