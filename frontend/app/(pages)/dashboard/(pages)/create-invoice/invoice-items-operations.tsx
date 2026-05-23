@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Cbutton } from "@/app/components/shared/button"
-import { useRateValues } from "@/app/store"
+import { useRateValues, useInvoiceItems } from "@/app/store"
 
 interface IInvoiceItem {
     partNumber: string;
@@ -29,6 +29,8 @@ export const InvoiceItemsOperationsTable = () => {
     const rateValues = useRateValues((state) => state.rateValues) as IRateValues | null
     const [invoiceItems, setInvoiceItems] = useState<IInvoiceItem[]>([])
     const [newInvoiceItem, setNewInvoiceItem] = useState<IInvoiceItem>(EMPTY_ITEM)
+    const setInvoiceItemsState = useInvoiceItems((state) => state.setInvoiceItems)
+    const setRateAmountsState = useInvoiceItems((state) => state.setRateAmounts) 
 
     const total = invoiceItems.reduce((sum, item) => sum + item.amount, 0)
     const nhilAmount = (rateValues?.nhil ?? 0) * total / 100
@@ -70,6 +72,18 @@ export const InvoiceItemsOperationsTable = () => {
         if (invoiceItems.length === 0) return
         setInvoiceItems((prev) => prev.slice(0, -1))
     }
+
+    useEffect(() => {
+        const rateAmounts = {
+            nhilAmount,
+            getfundAmount,
+            covidAmount,
+            vatAmount,
+            total,
+        }
+        setRateAmountsState(rateAmounts)
+        setInvoiceItemsState(invoiceItems)
+    }, [invoiceItems, setInvoiceItemsState, rateValues, nhilAmount, getfundAmount, covidAmount, vatAmount, total, setRateAmountsState])
 
 
     return (
