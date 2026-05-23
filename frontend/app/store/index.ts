@@ -86,10 +86,16 @@ interface IRateAmounts {
     total: number;
 }
 
+interface InvoiceItemsState {
+    invoiceItems: IInvoiceItem[];
+    rateAmounts?: IRateAmounts;
+    setRateAmounts: (value: IRateAmounts) => void;
+    setInvoiceItems: (value: IInvoiceItem[]) => void;
+}
+
 export const useInvoiceItems = create<InvoiceItemsState>((set) => ({
     invoiceItems: [],
     setInvoiceItems: (value: IInvoiceItem[]) => set({ invoiceItems: value }),
-  
-   
-    
+    rateAmounts: undefined,
+    setRateAmounts: (value: IRateAmounts) => set({ rateAmounts: value }),
 }))
