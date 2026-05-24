@@ -1,26 +1,20 @@
 import { useState, useEffect } from "react"
 import { CInput } from "@/app/components/shared/input"
-import { useRateValues } from "@/app/store"
+import { RateValues, useRateValues } from "@/app/store"
 
 export const RateOperationsForm = () => {
-    const [rateValues, setRateValues] = useState({})
+    const [rateValues, setRateValues] = useState<RateValues>({})
     const setRateValuesState = useRateValues((state) => state.setRateValues)
-    const rateValuesState = useRateValues((state) => state.rateValues)
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
-        setRateValues((prevValues) => ({ ...prevValues, [name]: value }))
+        setRateValues((prevValues) => ({ ...prevValues, [name]: Number(value) }))
     }
 
 
     useEffect(() => {
         setRateValuesState(rateValues)
     }, [rateValues, setRateValuesState])
-
-
-    useEffect(() => {
-        console.log(rateValuesState)
-    }, [rateValuesState])
 
     return (
         <div>

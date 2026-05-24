@@ -59,14 +59,21 @@ export const useSideModal = create<SideModalState>()((set)=>({
 }))
 
 
+export interface RateValues {
+    nhil?: number;
+    getfund?: number;
+    covid?: number;
+    vat?: number;
+}
+
 interface RateValueState{
-    rateValues:object;
-    setRateValues:(value:object)=>void;
+    rateValues:RateValues;
+    setRateValues:(value:RateValues)=>void;
 }
 
 export const useRateValues = create<RateValueState>((set)=>({
     rateValues:{},
-    setRateValues:(value:object)=>set({rateValues:value}),
+    setRateValues:(value:RateValues)=>set({rateValues:value}),
    
 }))
 

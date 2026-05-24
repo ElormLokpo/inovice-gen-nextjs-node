@@ -18,15 +18,8 @@ const EMPTY_ITEM: IInvoiceItem = {
     amount: 0,
 }
 
-interface IRateValues {
-    nhil: number;
-    getfund: number;
-    covid: number;
-    vat: number;
-}
-
 export const InvoiceItemsOperationsTable = () => {
-    const rateValues = useRateValues((state) => state.rateValues) as IRateValues | null
+    const rateValues = useRateValues((state) => state.rateValues)
     const [invoiceItems, setInvoiceItems] = useState<IInvoiceItem[]>([])
     const [newInvoiceItem, setNewInvoiceItem] = useState<IInvoiceItem>(EMPTY_ITEM)
     const setInvoiceItemsState = useInvoiceItems((state) => state.setInvoiceItems)

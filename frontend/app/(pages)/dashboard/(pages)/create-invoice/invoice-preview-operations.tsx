@@ -1,5 +1,5 @@
 import { Cbutton } from "@/app/components/shared/button"
-import { ArrowCircleDownIcon, PlusIcon } from "@phosphor-icons/react"
+import { ArrowCircleDownIcon } from "@phosphor-icons/react"
 import { Client } from "@/app/hooks/useClient"
 import { Business } from "@/app/hooks/useBusiness"
 import { useInvoiceItems, useRateValues } from "@/app/store"
