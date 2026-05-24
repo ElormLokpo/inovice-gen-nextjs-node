@@ -3,7 +3,7 @@ import { Cbutton } from "@/app/components/shared/button";
 import { InvoiceItemsOperationsTable } from "./invoice-items-operations";
 import { Business, useBusinesses, useDeleteBusiness } from "@/app/hooks/useBusiness";
 
-import { Client, useClients, useDeleteClient } from "@/app/hooks/useClient";
+import { useClients, useDeleteClient } from "@/app/hooks/useClient";
 import { PencilSimpleLineIcon, PlusIcon } from "@phosphor-icons/react";
 import { useSideModal } from "@/app/store";
 
@@ -223,32 +223,3 @@ function BusinessDetails({ business }: { business?: Business }) {
     );
 }
 
-const clientDetailItems = (client?: Client) => [
-    { label: "Client Name", value: client?.name },
-    { label: "Email", value: client?.email },
-    { label: "Phone", value: client?.phone },
-    { label: "Address", value: client?.address },
-    { label: "City", value: client?.city },
-    { label: "Country", value: client?.country },
-];
-
-function ClientDetails({ client }: { client?: Client }) {
-    if (!client) {
-        return (
-            <div className="text-xs text-zinc-400">
-                Add a client to populate client details.
-            </div>
-        );
-    }
-
-    return (
-        <div className="grid grid-cols-3 gap-x-4">
-            {clientDetailItems(client).map((item) => (
-                <div className="flex flex-col gap-1 mb-5" key={item.label}>
-                    <span className="text-xs text-zinc-300/80">{item.label}</span>
-                    <span className="text-xs">{item.value || "Not set"}</span>
-                </div>
-            ))}
-        </div>
-    );
-}

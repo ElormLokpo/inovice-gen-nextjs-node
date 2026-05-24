@@ -3,6 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-inter: Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-space-grotesk: "Space Grotesk", Inter, ui-sans-serif, system-ui, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -66,4 +68,3 @@ body {
 .heading {
   font-family: var(--font-heading);
 }
-
