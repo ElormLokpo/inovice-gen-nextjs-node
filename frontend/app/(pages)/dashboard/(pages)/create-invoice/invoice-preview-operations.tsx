@@ -5,7 +5,7 @@ import { Business } from "@/app/hooks/useBusiness"
 import { useInvoiceItems, useRateValues } from "@/app/store"
 
 
-export const InvoicePreviewOperations = ({ selectedBusiness, selectedClient }: { selectedBusiness?: Business, selectedClient?: Client }) => {
+export const InvoicePreviewOperations = ({ selectedBusiness, selectedClient , invoiceDates }: { selectedBusiness?: Business, selectedClient?: Client, invoiceDates?: { issueDate: string, dueDate: string } }) => {
     const invoiceItems = useInvoiceItems((state) => state.invoiceItems)
     const rateAmounts = useInvoiceItems((state) => state.rateAmounts)
     const rateValues = useRateValues((state) => state.rateValues)
@@ -24,8 +24,8 @@ export const InvoicePreviewOperations = ({ selectedBusiness, selectedClient }: {
 
             <div className="bg-zinc-800/50 p-2 rounded-2xl ">
                 <div className="flex justify-between text-xs border-b p-2 mb-5 border-zinc-600">
-                    <div><span className="text-zinc-400">Date of issue: </span>November 20, 2026</div>
-                    <div><span className="text-zinc-400">Date of issue: </span>November 20, 2026</div>
+                    <div><span className="text-zinc-400">Date of issue: </span>{invoiceDates?.issueDate || "November 20, 2026"}</div>
+                    <div><span className="text-zinc-400">Date of due: </span>{invoiceDates?.dueDate || "November 20, 2026"}</div>
 
                 </div>
 
@@ -39,7 +39,7 @@ export const InvoicePreviewOperations = ({ selectedBusiness, selectedClient }: {
                     </div>
                 </div>
 
-                <div className="p-2 bg-zinc-800/50 mb-10 text-xs flex justify-between mb-4 rounded-xl border border-zinc-600/50">
+                <div className="p-2 bg-zinc-800/20 mb-10 text-xs flex justify-between mb-4 rounded-xl border border-zinc-600/50">
                     <div className="flex flex-col gap-1">
                         <span className="text-zinc-400">Send to:</span>
                         <span className="">{selectedClient ? selectedClient.name : "Client Name"}</span>
@@ -113,12 +113,7 @@ export const InvoicePreviewOperations = ({ selectedBusiness, selectedClient }: {
                         </div>
                     </div>
 
-                    <div className="flex gap-2 justify-end align-baseline">
-                        <Cbutton buttonType="standard" variant="secondary" size="sm" label="Add Compnay" icon={<PlusIcon size={12} />} />
-
-                        <Cbutton buttonType="standard" variant="primary" size="sm" label="Add Compnay" icon={<PlusIcon size={12} />} />
-
-                    </div>
+                    
                 </div>
             </div>
         </div>

@@ -16,6 +16,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { AddClientForm} from "./client-operations";
 import { RateOperationsForm } from "./rate-operations";
 import { InvoicePreviewOperations } from "./invoice-preview-operations";
+import {InvoiceDateOperationsForm} from "./invoice-date-operations";
 
 export default function CreateInvoicePage() {
     const setModalContent = useSideModal((state) => state.setModalContent)
@@ -31,6 +32,12 @@ export default function CreateInvoicePage() {
         () => clients.find((client) => client.id === selectedClientId) ?? clients[0],
         [clients, selectedClientId],
     );
+
+       const [invoiceDates, setInvoiceDates] = useState({
+        issueDate: "",
+        dueDate: ""
+    })
+
 
     const [showBusinessOperationsPopup, setShowBusinessOperationsPopup] = useState(false);
 
@@ -169,12 +176,16 @@ export default function CreateInvoicePage() {
                     </>
 
                     <>
+                        <InvoiceDateOperationsForm setInvoiceDates={setInvoiceDates} />
+                    </>
+
+                    <>
                         <InvoiceItemsOperationsTable />
                     </>
                 </div>
             </div>
             <>
-                <InvoicePreviewOperations selectedBusiness={selectedBusiness} selectedClient={selectedClient} />
+                <InvoicePreviewOperations invoiceDates={invoiceDates} selectedBusiness={selectedBusiness} selectedClient={selectedClient} />
             </>
         </div>
     )
