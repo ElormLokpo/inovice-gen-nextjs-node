@@ -60,7 +60,7 @@ export const InvoicePreviewOperations = ({ selectedBusiness, selectedClient , in
 
 
                 <div>
-                    <div className="flex bg-emerald-500 text-zinc-800 text-xs rounded-t-xl">
+                    <div className="flex bg-emerald-500 font-bold text-zinc-800 text-xs rounded-t-xl">
                         <div className="w-[20%] py-3 px-2 border-r border-emerald-400">Part Number</div>
                         <div className="w-[50%] py-3 px-2 border-r border-emerald-400">Description</div>
                         <div className="w-[10%] py-3 px-2 border-r border-emerald-400">Unit Price</div>
