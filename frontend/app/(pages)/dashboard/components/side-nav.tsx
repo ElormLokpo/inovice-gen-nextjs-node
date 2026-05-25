@@ -4,17 +4,19 @@ import { useAuthStore } from "@/app/store"
 import { CardholderIcon, FileLockIcon, GearSixIcon, SignOutIcon } from "@phosphor-icons/react"
 import { useRouter } from "next/navigation"
 import { ReactElement } from "react"
+import { usePathname } from "next/navigation"
 
 export const DashboardSideNav = () => {
+    const pathname = usePathname()
+
     const router = useRouter()
     const clearAuth = useAuthStore((state) => state.clearAuth)
 
-    const navLinksArr = [
-        { icon: <FileLockIcon size={25} />, text: "Invoice", link: "" },
-        { icon: <CardholderIcon size={25} />, text: "Purchase Oder", link: "" },
-        { icon: <FileLockIcon size={25} />, text: "Invoice", link: "" },
-        { icon: <CardholderIcon size={25} />, text: "Purchase Oder", link: "" },
+   
 
+    const navLinksArr = [
+        { icon: <FileLockIcon size={25} />, text: "Invoice", onclick: () => router.push("/dashboard/create-invoice") , isActive: pathname === "/dashboard/create-invoice" },
+        { icon: <CardholderIcon size={25} />, text: "Purchase Oder", onclick: () => router.push("/dashboard/purchase-orders") , isActive: pathname === "/dashboard/purchase-orders" },
 
     ]
 
@@ -45,7 +47,7 @@ export const DashboardSideNav = () => {
                 <div>
                     <div className="flex gap-5 flex-col mb-10">
                         {
-                            navLinksArr.map(({ icon, text }, key) => <NavItem icon={icon} text={text} key={key} />)
+                            navLinksArr.map(({ icon, text, onclick, isActive }, key) => <NavItem icon={icon} text={text} onClick={onclick} isActive={isActive} key={key} />)
                         }
                     </div>
 
@@ -61,9 +63,9 @@ export const DashboardSideNav = () => {
     )
 }
 
-const NavItem = ({ icon, text, onClick }: { icon: ReactElement, text: string, onClick?: () => void }) => {
+const NavItem = ({ icon, text, onClick, isActive }: { icon: ReactElement, text: string, onClick?: () => void, isActive?: boolean }) => {
     return (
-        <button type="button" onClick={onClick} className="text-zinc-200 hover:cursor-pointer flex flex-col items-center hover:bg-emerald-500 hover:text-zinc-100 rounded-2xl p-3">
+        <button type="button" onClick={onClick} className={`text-zinc-200 hover:cursor-pointer flex flex-col items-center transition ease-in  hover:bg-emerald-600 ${isActive? "bg-emerald-500 text-zinc-900 font-bold":""} hover:text-zinc-100 rounded-2xl p-3`}>
             <div>
                 {icon}
             </div>
