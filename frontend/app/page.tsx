@@ -2,7 +2,6 @@
 import Image from "next/image";
 import { GoMail } from "react-icons/go";
 import { RiRobot3Line } from "react-icons/ri";
-
 import { motion } from "framer-motion";
 import { FaChartSimple } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
@@ -39,10 +38,10 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
             <div className="space-y-8">
-              <div className="inline-flex items-center gap-x-2 bg-white/5 text-emerald-400 text-sm font-medium px-5 py-2 rounded-3xl border border-white/10">
+              {/* <div className="inline-flex items-center gap-x-2 bg-white/5 text-emerald-400 text-sm font-medium px-5 py-2 rounded-3xl border border-white/10">
                 <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
                 NEW: AI-Powered Invoice Generator
-              </div>
+              </div> */}
 
               <h1 className="text-7xl lg:text-8xl font-semibold tracking-tighter leading-none heading">
                 Beautiful<br />invoices.<br />Instantly.

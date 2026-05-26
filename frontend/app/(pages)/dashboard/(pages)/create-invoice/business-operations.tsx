@@ -85,6 +85,9 @@ export default function AddBusinessForm({
 
     return (
         <div>
+            <div className="font-light text-xs mb-5">
+                Kindly enter your business detials.
+            </div>
             <form onSubmit={handleSubmit(submitHandler)} id={formId}>
                 <div className="mb-5">
                     <CInput register={register} errors={errors} name="name" variant={"default"} inputType="formInput" label="Business Name:" />
