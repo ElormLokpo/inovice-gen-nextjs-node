@@ -146,7 +146,7 @@ export const AddClientForm = ({
                                 <div>
                                     <span className="font-semibold text-zinc-100">Client Details</span>
                                 </div>
-
+{/* 
                                 <div className="flex items-center gap-3">
                                     <select
                                         value={selectedClient?.id || ""}
@@ -193,7 +193,7 @@ export const AddClientForm = ({
                                             />
                                         </div>}
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             {/* <div className="p-4">
                     <ClientDetails client={selectedClient} />
@@ -224,7 +224,7 @@ export const AddClientForm = ({
                         </div>
                     </div>
 
-                    {showInlineSubmit && (
+                    {/* {showInlineSubmit && (
                         <div className="flex justify-end p-4 pt-0">
                             <Cbutton
                                 disabled={!businessId}
@@ -238,7 +238,7 @@ export const AddClientForm = ({
                                 icon={<LuUserRoundPlus size={12} />}
                             />
                         </div>
-                    )}
+                    )} */}
                 </div>
             </form>
         </>
