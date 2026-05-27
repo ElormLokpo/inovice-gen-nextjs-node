@@ -2,8 +2,7 @@ import { Cbutton } from "@/app/components/shared/button"
 import { ArrowCircleDownIcon } from "@phosphor-icons/react"
 
 import { Business } from "@/app/hooks/useBusiness"
-import { useInvoiceItems, useRateValues } from "@/app/store"
-import { useClientFormContext } from "./client-context"
+import { useClients, useInvoiceItems, useRateValues } from "@/app/store"
 
 
 export const InvoicePreviewOperations = ({ selectedBusiness , invoiceDates }: { selectedBusiness?: Business, invoiceDates?: { issueDate: string, dueDate: string } }) => {
@@ -11,7 +10,7 @@ export const InvoicePreviewOperations = ({ selectedBusiness , invoiceDates }: { 
     const rateAmounts = useInvoiceItems((state) => state.rateAmounts)
     const rateValues = useRateValues((state) => state.rateValues)
 
-    const { client: selectedClient } = useClientFormContext()
+    const selectedClient = useClients((state) => state.client)
 
     return (
         <div className="border border-zinc-800 p-3 rounded-xl">

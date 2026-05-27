@@ -1,10 +1,10 @@
 
 import { CInput } from "@/app/components/shared/input";
-import { useClientFormContext } from "./client-context";
+import { useClients } from "@/app/store";
 
 
 export const AddClientForm = () => {
-    const { setClient } = useClientFormContext();
+    const setClient = useClients((state) => state.setClient)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;

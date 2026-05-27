@@ -13,7 +13,6 @@ import { AddClientForm} from "./client-operations";
 import { RateOperationsForm } from "./rate-operations";
 import { InvoicePreviewOperations } from "./invoice-preview-operations";
 import {InvoiceDateOperationsForm} from "./invoice-date-operations";
-import { ClientFormProvider } from "./client-context";
 
 export default function CreateInvoicePage() {
     const setModalContent = useSideModal((state) => state.setModalContent)
@@ -86,7 +85,6 @@ export default function CreateInvoicePage() {
 
 
     return (
-        <ClientFormProvider>
         <div className="px-7 grid grid-cols-2 gap-2">
             <div className=" border border-zinc-800 rounded-xl">
                 <div className="flex mb-3 justify-between border-b pb-4 p-4 border-zinc-800 ">
@@ -180,7 +178,6 @@ export default function CreateInvoicePage() {
                 <InvoicePreviewOperations invoiceDates={invoiceDates} selectedBusiness={selectedBusiness}  />
             </>
         </div>
-        </ClientFormProvider>
     )
 }
 
