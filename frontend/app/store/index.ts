@@ -106,3 +106,4 @@ export const useInvoiceItems = create<InvoiceItemsState>((set) => ({
     rateAmounts: undefined,
     setRateAmounts: (value: IRateAmounts) => set({ rateAmounts: value }),
 }))
+

@@ -167,3 +167,36 @@ export const DeleteBusinessForm = ({ businessName }: {  businessName:string }) =
         </div>
     )
 }   
+
+
+const businessDetailItems = (business?: Business) => [
+    { label: "Company Name", value: business?.name },
+    { label: "Email", value: business?.email },
+    { label: "Phone", value: business?.phone },
+    { label: "Address", value: business?.address },
+    { label: "City", value: business?.city },
+    { label: "Country", value: business?.country },
+    { label: "Tax ID", value: business?.taxId },
+    { label: "Currency", value: business?.currency },
+];
+
+export function BusinessDetails({ business }: { business?: Business }) {
+    if (!business) {
+        return (
+            <div className="text-xs text-zinc-400">
+               Add your business details to create invoice. This information will be displayed on the invoice and shared with your clients.
+            </div>
+        );
+    }
+
+    return (
+        <div className="grid grid-cols-3 gap-x-4">
+            {businessDetailItems(business).map((item) => (
+                <div className="flex flex-col gap-1 mb-5" key={item.label}>
+                    <span className="text-xs text-zinc-300/80">{item.label}</span>
+                    <span className="text-xs">{item.value || "Not set"}</span>
+                </div>
+            ))}
+        </div>
+    );
+}

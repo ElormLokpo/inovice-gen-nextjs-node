@@ -1,22 +1,19 @@
 "use client"
 import { Cbutton } from "@/app/components/shared/button";
 import { InvoiceItemsOperationsTable } from "./invoice-items-operations";
-import { Business, useBusinesses, useDeleteBusiness } from "@/app/hooks/useBusiness";
-
-import { useClients, useDeleteClient } from "@/app/hooks/useClient";
+import { useBusinesses, useDeleteBusiness } from "@/app/hooks/useBusiness";
 import { PencilSimpleLineIcon, PlusIcon } from "@phosphor-icons/react";
 import { useSideModal } from "@/app/store";
-
-import AddBusinessForm, { ADD_BUSINESS_FORM_ID, DeleteBusinessForm } from "./business-operations";
+import AddBusinessForm, { ADD_BUSINESS_FORM_ID, BusinessDetails, DeleteBusinessForm } from "./business-operations";
 import { SideModal } from "../../components/side-modal";
 import { useEffect, useMemo, useState } from "react";
-
 import { MdDeleteOutline } from "react-icons/md";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { AddClientForm} from "./client-operations";
 import { RateOperationsForm } from "./rate-operations";
 import { InvoicePreviewOperations } from "./invoice-preview-operations";
 import {InvoiceDateOperationsForm} from "./invoice-date-operations";
+import { ClientFormProvider } from "./client-context";
 
 export default function CreateInvoicePage() {
     const setModalContent = useSideModal((state) => state.setModalContent)
@@ -26,12 +23,7 @@ export default function CreateInvoicePage() {
         () => businesses.find((business) => business.id === selectedBusinessId) ?? businesses[0],
         [businesses, selectedBusinessId],
     );
-    const { data: clients = [], isLoading: isLoadingClients } = useClients(selectedBusiness?.id);
-    const [selectedClientId, setSelectedClientId] = useState("");
-    const selectedClient = useMemo(
-        () => clients.find((client) => client.id === selectedClientId) ?? clients[0],
-        [clients, selectedClientId],
-    );
+   
 
        const [invoiceDates, setInvoiceDates] = useState({
         issueDate: "",
@@ -79,21 +71,22 @@ export default function CreateInvoicePage() {
         )
     }
 
-    const {  isPending: isDeletingClient } = useDeleteClient()
+    
 
 
       useEffect(() => {
-                const isDeleting = isDeletingBusiness || isDeletingClient;
+                const isDeleting = isDeletingBusiness  ;
                 setSubmitState({
                     isSubmitting: isDeleting,
-                    loadingText: isDeletingClient ? "Deleting Client..." : "Deleting Business...",
+                    loadingText:   "Deleting Business...",
                 });
         
                 return () => setSubmitState({ isSubmitting: false });
-            }, [isDeletingBusiness, isDeletingClient, setSubmitState]);
+            }, [isDeletingBusiness, setSubmitState]);
 
 
     return (
+        <ClientFormProvider>
         <div className="px-7 grid grid-cols-2 gap-2">
             <div className=" border border-zinc-800 rounded-xl">
                 <div className="flex mb-3 justify-between border-b pb-4 p-4 border-zinc-800 ">
@@ -105,7 +98,6 @@ export default function CreateInvoicePage() {
                                 value={selectedBusiness?.id || ""}
                                 onChange={(event) => {
                                     setSelectedBusinessId(event.target.value);
-                                    setSelectedClientId("");
                                 }}
                                 disabled={isLoadingBusinesses || businesses.length === 0}
                                 className="text-xs text-zinc-300 border w-60 border-zinc-600 py-3 px-3 rounded-2xl bg-black disabled:opacity-60"
@@ -129,7 +121,7 @@ export default function CreateInvoicePage() {
                     <div className="bg-zinc-800/50 mb-4 w-full p-3 rounded-xl">
                         <div className="flex justify-between items-center pb-3 border-b mb-4 border-zinc-800">
                             <div>
-                                <span className="font-semibold text-zinc-100">Company Details</span>
+                                <span className="font-semibold text-zinc-100">Business Details</span>
                             </div>
 
                             <div>
@@ -171,7 +163,7 @@ export default function CreateInvoicePage() {
 
 
                     <>
-                        <AddClientForm businessId={selectedBusiness?.id} formId="add-client-inline-form" showInlineSubmit selectedBusiness={selectedBusiness} selectedClient={selectedClient} clients={clients} setSelectedClientId={setSelectedClientId} isLoadingClients={isLoadingClients} />
+                        <AddClientForm />
 
                     </>
 
@@ -185,41 +177,11 @@ export default function CreateInvoicePage() {
                 </div>
             </div>
             <>
-                <InvoicePreviewOperations invoiceDates={invoiceDates} selectedBusiness={selectedBusiness} selectedClient={selectedClient} />
+                <InvoicePreviewOperations invoiceDates={invoiceDates} selectedBusiness={selectedBusiness}  />
             </>
         </div>
+        </ClientFormProvider>
     )
 }
 
-const businessDetailItems = (business?: Business) => [
-    { label: "Company Name", value: business?.name },
-    { label: "Email", value: business?.email },
-    { label: "Phone", value: business?.phone },
-    { label: "Address", value: business?.address },
-    { label: "City", value: business?.city },
-    { label: "Country", value: business?.country },
-    { label: "Tax ID", value: business?.taxId },
-    { label: "Currency", value: business?.currency },
-];
-
-function BusinessDetails({ business }: { business?: Business }) {
-    if (!business) {
-        return (
-            <div className="text-xs text-zinc-400">
-                Add a business to populate company details.
-            </div>
-        );
-    }
-
-    return (
-        <div className="grid grid-cols-3 gap-x-4">
-            {businessDetailItems(business).map((item) => (
-                <div className="flex flex-col gap-1 mb-5" key={item.label}>
-                    <span className="text-xs text-zinc-300/80">{item.label}</span>
-                    <span className="text-xs">{item.value || "Not set"}</span>
-                </div>
-            ))}
-        </div>
-    );
-}
 
