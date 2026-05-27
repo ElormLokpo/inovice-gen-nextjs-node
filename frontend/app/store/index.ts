@@ -106,3 +106,33 @@ export const useInvoiceItems = create<InvoiceItemsState>((set) => ({
     rateAmounts: undefined,
     setRateAmounts: (value: IRateAmounts) => set({ rateAmounts: value }),
 }))
+
+export interface IClient {
+   
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+    city: string;
+    country: string;
+}
+
+interface IClientState {
+    client: IClient;
+    setClient: (value: IClient | ((prev: IClient) => IClient)) => void;
+}
+
+export const useClients = create<IClientState>((set) => ({
+    client: {
+        name: "",
+        email: "",
+        phone: "",
+        address: "",
+        city: "",
+        country: "",
+    },
+    setClient: (value) => set((state) => ({
+        client: typeof value === "function" ? value(state.client) : value,
+    })),
+    
+}))

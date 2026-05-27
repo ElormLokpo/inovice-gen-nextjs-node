@@ -1,19 +1,21 @@
 import { Cbutton } from "@/app/components/shared/button"
 import { ArrowCircleDownIcon } from "@phosphor-icons/react"
-import { Client } from "@/app/hooks/useClient"
+
 import { Business } from "@/app/hooks/useBusiness"
-import { useInvoiceItems, useRateValues } from "@/app/store"
+import { useClients, useInvoiceItems, useRateValues } from "@/app/store"
 
 
-export const InvoicePreviewOperations = ({ selectedBusiness, selectedClient , invoiceDates }: { selectedBusiness?: Business, selectedClient?: Client, invoiceDates?: { issueDate: string, dueDate: string } }) => {
+export const InvoicePreviewOperations = ({ selectedBusiness , invoiceDates }: { selectedBusiness?: Business, invoiceDates?: { issueDate: string, dueDate: string } }) => {
     const invoiceItems = useInvoiceItems((state) => state.invoiceItems)
     const rateAmounts = useInvoiceItems((state) => state.rateAmounts)
     const rateValues = useRateValues((state) => state.rateValues)
 
+    const selectedClient = useClients((state) => state.client)
+
     return (
         <div className="border border-zinc-800 p-3 rounded-xl">
 
-            <div className="flex mb-3 justify-between border-b pb-4 border-zinc-600 ">
+            <div className="flex mb-3 justify-between border-b pb-4 border-zinc-800 ">
                 <div className="text-lg font-semibold">Invoice Preview</div>
 
                 <div className="flex gap-3 items-center">
@@ -23,7 +25,7 @@ export const InvoicePreviewOperations = ({ selectedBusiness, selectedClient , in
             </div>
 
             <div className="bg-zinc-800/50 p-2 rounded-2xl ">
-                <div className="flex justify-between text-xs border-b p-2 mb-5 border-zinc-600">
+                <div className="flex justify-between text-xs border-b p-2 mb-5 border-zinc-800">
                     <div><span className="text-zinc-400">Date of issue: </span>{invoiceDates?.issueDate || "November 20, 2026"}</div>
                     <div><span className="text-zinc-400">Date of due: </span>{invoiceDates?.dueDate || "November 20, 2026"}</div>
 
@@ -42,9 +44,9 @@ export const InvoicePreviewOperations = ({ selectedBusiness, selectedClient , in
                 <div className="p-2 bg-zinc-800/20 mb-10 text-xs flex justify-between mb-4 rounded-xl border border-zinc-600/50">
                     <div className="flex flex-col gap-1">
                         <span className="text-zinc-400">Send to:</span>
-                        <span className="">{selectedClient ? selectedClient.name : "Client Name"}</span>
-                        <span className="text-zinc-400">{selectedClient ? selectedClient.address : "Client Address"}</span>
-                        <span className="text-zinc-400">{selectedClient ? selectedClient.phone : "Client Phone"}</span>
+                        <span className="">{selectedClient.name.length > 0 ? selectedClient.name : "Client Name"}</span>
+                        <span className="text-zinc-400">{selectedClient.address.length > 0 ? selectedClient.address : "Client Address"}</span>
+                        <span className="text-zinc-400">{selectedClient.phone.length > 0 ? selectedClient.phone : "Client Phone"}</span>
 
 
 
