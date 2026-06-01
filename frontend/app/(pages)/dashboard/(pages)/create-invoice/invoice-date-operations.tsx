@@ -1,8 +1,5 @@
 import { CInput } from "@/app/components/shared/input"
 
-
-
-
 export const InvoiceDateOperationsForm = ({ setInvoiceDates }: {
     setInvoiceDates: React.Dispatch<React.SetStateAction<{
         issueDate: string;
