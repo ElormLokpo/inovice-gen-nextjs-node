@@ -5,12 +5,29 @@ import { Business } from "@/app/hooks/useBusiness"
 import { useClients, useInvoiceItems, useRateValues } from "@/app/store"
 
 
-export const InvoicePreviewOperations = ({ selectedBusiness , invoiceDates }: { selectedBusiness?: Business, invoiceDates?: { issueDate: string, dueDate: string } }) => {
+export const InvoicePreviewOperations = ({ selectedBusiness, invoiceDates }: { selectedBusiness?: Business, invoiceDates?: { issueDate: string, dueDate: string } }) => {
     const invoiceItems = useInvoiceItems((state) => state.invoiceItems)
     const rateAmounts = useInvoiceItems((state) => state.rateAmounts)
     const rateValues = useRateValues((state) => state.rateValues)
 
     const selectedClient = useClients((state) => state.client)
+
+    const handleDownloadInvoice = () => {
+        console.log("Download Invoice")
+
+        const finalData = {
+            businessId: selectedBusiness?.id,
+            currency: selectedBusiness?.currency || "GHS",
+            clientDetails: selectedClient,
+            invoiceItems: invoiceItems,
+            ...rateAmounts,
+            ...rateValues,
+            ...invoiceDates,
+        }
+
+        console.log(finalData);
+    }
+
 
     return (
         <div className="border border-zinc-800 p-3 rounded-xl">
@@ -20,7 +37,7 @@ export const InvoicePreviewOperations = ({ selectedBusiness , invoiceDates }: { 
 
                 <div className="flex gap-3 items-center">
 
-                    <Cbutton buttonType="standard" variant="secondary" size="sm" label="Download Invoice" icon={<ArrowCircleDownIcon size={12} />} />
+                    <Cbutton handler={handleDownloadInvoice} buttonType="standard" variant="secondary" size="sm" label="Download Invoice" icon={<ArrowCircleDownIcon size={12} />} />
                 </div>
             </div>
 
@@ -77,7 +94,7 @@ export const InvoicePreviewOperations = ({ selectedBusiness , invoiceDates }: { 
                         <div className="w-[20%] py-3 px-2 border-r border-zinc-700">Total(GHC)</div>
                     </div>
 
-                      {invoiceItems.map((item, index) => (
+                    {invoiceItems.map((item, index) => (
                         <div key={index} className="flex text-xs border-b border-zinc-600">
                             <div className="w-[20%] py-3 px-2 border-l border-r border-zinc-600">{item.partNumber}</div>
                             <div className="w-[50%] py-3 px-2 border-r border-zinc-600">{item.description}</div>
@@ -115,7 +132,7 @@ export const InvoicePreviewOperations = ({ selectedBusiness , invoiceDates }: { 
                         </div>
                     </div>
 
-                    
+
                 </div>
             </div>
         </div>

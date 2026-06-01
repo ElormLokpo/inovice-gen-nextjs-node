@@ -38,10 +38,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
             <div className="space-y-8">
-              {/* <div className="inline-flex items-center gap-x-2 bg-white/5 text-emerald-400 text-sm font-medium px-5 py-2 rounded-3xl border border-white/10">
-                <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                NEW: AI-Powered Invoice Generator
-              </div> */}
+            
 
               <h1 className="text-7xl lg:text-8xl font-semibold tracking-tighter leading-none heading">
                 Beautiful<br />invoices.<br />Instantly.
@@ -119,7 +116,7 @@ export default function Home() {
                     <tbody className="text-sm divide-y divide-zinc-100">
                       <tr>
                         <td className="py-4">Design System</td>
-                        <td className="text-right">$120.00</td>
+                        <td className="text-right">GHC120.00</td>
                         <td className="text-right font-medium">GHC120.00</td>
                       </tr>
                     </tbody>
@@ -202,7 +199,7 @@ export default function Home() {
             <a href="https://github.com/ElormLokpo" target="blank" className="hover:text-white transition">Github</a>
             <a href="https://www.linkedin.com/in/elorm-lokpo-837a4a309/" target="blank" className="hover:text-white transition">LinkedIn</a>
           </div>
-          <div>Made with ❤️ for freelancers</div>
+          <div>Made for freelancers</div>
         </div>
       </footer>
     </div>

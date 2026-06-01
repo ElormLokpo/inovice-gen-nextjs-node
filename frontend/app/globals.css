@@ -68,3 +68,7 @@ body {
 .heading {
   font-family: var(--font-heading);
 }
+
+button:hover{
+  corsor: pointer;
+}
