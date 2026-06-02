@@ -18,7 +18,7 @@ export type MessageData = {
 
 
 
-export type Business = {
+export type IBusiness = {
   id: string;
   ownerId: string;
   name: string;
@@ -35,7 +35,7 @@ export type Business = {
 };
 
 
-export interface Invoice {
+export interface IInvoice {
   id: string;
   businessId: string;
   clientId: string;
@@ -87,7 +87,7 @@ export interface IClientState {
 }
 
 
-export interface InvoiceItemsState {
+export interface IInvoiceItemsState {
     invoiceItems: IInvoiceItem[];
     rateAmounts?: IRateAmounts;
     setRateAmounts: (value: IRateAmounts) => void;
@@ -95,20 +95,20 @@ export interface InvoiceItemsState {
 }
 
 
-export interface RateValues {
+export interface IRateValues {
     nhil?: number;
     getfund?: number;
     covid?: number;
     vat?: number;
 }
 
-export interface RateValueState{
-    rateValues:RateValues;
-    setRateValues:(value:RateValues)=>void;
+export interface IRateValueState{
+    rateValues:IRateValues;
+    setRateValues:(value:IRateValues)=>void;
 }
 
 
-export interface SideModalState{   
+export interface ISideModalState{   
     modalContent:ReactElement | null;
     isSubmitting:boolean;
     loadingText?:string;

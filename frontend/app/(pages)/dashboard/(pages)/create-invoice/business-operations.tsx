@@ -1,5 +1,5 @@
 import { CInput } from "@/app/components";
-import { Business, useCreateBusiness, useUpdateBusiness } from "@/app/hooks";
+import { useCreateBusiness, useUpdateBusiness } from "@/app/hooks";
 import { useCloudinaryUpload } from "@/app/hooks/useCloudinaryUpload";
 import { AddBusinessSchema, AddBusinessSchemaType } from "@/app/schema";
 import { useSideModal } from "@/app/store";
@@ -8,12 +8,13 @@ import Image from "next/image";
 import { useEffect, useMemo } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
+import { IBusiness } from "@/app/types";
 
 export const ADD_BUSINESS_FORM_ID = "add-business-form";
 
 type BusinessFormMode = "create" | "edit";
 
-const businessToFormValues = (business?: Business): AddBusinessSchemaType => ({
+const businessToFormValues = (business?: IBusiness): AddBusinessSchemaType => ({
     name: business?.name ?? "",
     address: business?.address ?? "",
     city: business?.city ?? "",
@@ -32,7 +33,7 @@ export default function AddBusinessForm({
 }: {
     formId?: string;
     mode?: BusinessFormMode;
-    business?: Business;
+    business?: IBusiness;
 }) {
     const defaultValues = useMemo(() => businessToFormValues(business), [business]);
     const setModalContent = useSideModal((state) => state.setModalContent);
@@ -169,7 +170,7 @@ export const DeleteBusinessForm = ({ businessName }: {  businessName:string }) =
 }   
 
 
-const businessDetailItems = (business?: Business) => [
+const businessDetailItems = (business?: IBusiness) => [
     { label: "Company Name", value: business?.name },
     { label: "Email", value: business?.email },
     { label: "Phone", value: business?.phone },
@@ -180,7 +181,7 @@ const businessDetailItems = (business?: Business) => [
     { label: "Currency", value: business?.currency },
 ];
 
-export function BusinessDetails({ business }: { business?: Business }) {
+export function BusinessDetails({ business }: { business?: IBusiness }) {
     if (!business) {
         return (
             <div className="text-xs text-zinc-400">

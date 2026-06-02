@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react"
 import { CInput } from "@/app/components"
-import { RateValues, useRateValues } from "@/app/store"
+import { useRateValues } from "@/app/store"
+import { IRateValues } from "@/app/types"
+
 
 export const RateOperationsForm = () => {
-    const [rateValues, setRateValues] = useState<RateValues>({})
+    const [rateValues, setRateValues] = useState<IRateValues>({})
     const setRateValuesState = useRateValues((state) => state.setRateValues)
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -3,7 +3,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import { toast } from "sonner";
 import request from "../api";
 import { BACKEND_URLS } from "../constants";
-import {Invoice, ApiEnvelope, ApiError } from "../types";
+import {IInvoice, ApiEnvelope, ApiError } from "../types";
 
 
 
@@ -19,19 +19,19 @@ const getErrorMessage = (error: AxiosError<ApiError>, fallback: string) =>
   error.response?.data?.message ?? fallback;
 
 export const useInvoices = () => {
-  return useQuery<Invoice[]>({
+  return useQuery<IInvoice[]>({
     queryKey: InvoiceQueryKey,
     queryFn: async () => {
-      const response = await request.get<ApiEnvelope<Invoice[]>>(BACKEND_URLS.INOVICES);
+      const response = await request.get<ApiEnvelope<IInvoice[]>>(BACKEND_URLS.INOVICES);
       return response.data.data;
     },
   });
 };
 
-export const useCreateInvoice = (options?: { onSuccess?: (Invoice: Invoice) => void }) => {
+export const useCreateInvoice = (options?: { onSuccess?: (Invoice: IInvoice) => void }) => {
   const queryClient = useQueryClient();
 
-  return useMutation<AxiosResponse<ApiEnvelope<Invoice>>, AxiosError<ApiError>>({
+  return useMutation<AxiosResponse<ApiEnvelope<IInvoice>>, AxiosError<ApiError>>({
     mutationFn: (data) => request.post(BACKEND_URLS.INOVICES, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: InvoiceQueryKey });
@@ -43,3 +43,4 @@ export const useCreateInvoice = (options?: { onSuccess?: (Invoice: Invoice) => v
     },
   });
 };
+

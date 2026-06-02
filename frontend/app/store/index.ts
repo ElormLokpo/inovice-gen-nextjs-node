@@ -5,13 +5,13 @@ import { persist } from 'zustand/middleware';
 import {
     IUserData,
     IRateAmounts,
-    RateValues,
+    IRateValues,
     AuthState,
     IInvoiceItem,
     IClientState,
-    InvoiceItemsState,
-    RateValueState,
-    SideModalState
+    IInvoiceItemsState,
+    IRateValueState,
+    ISideModalState
 } from '@/app/types';
 
 
@@ -37,7 +37,7 @@ export const useAuthStore = create<AuthState>()(
 
 
 
-export const useSideModal = create<SideModalState>()((set) => ({
+export const useSideModal = create<ISideModalState>()((set) => ({
     modalContent: null,
     isSubmitting: false,
     loadingText: undefined,
@@ -48,16 +48,16 @@ export const useSideModal = create<SideModalState>()((set) => ({
 
 
 
-export const useRateValues = create<RateValueState>((set) => ({
+export const useRateValues = create<IRateValueState>((set) => ({
     rateValues: {},
-    setRateValues: (value: RateValues) => set({ rateValues: value }),
+    setRateValues: (value: IRateValues) => set({ rateValues: value }),
 
 }))
 
 
 
 
-export const useInvoiceItems = create<InvoiceItemsState>((set) => ({
+export const useInvoiceItems = create<IInvoiceItemsState>((set) => ({
     invoiceItems: [],
     setInvoiceItems: (value: IInvoiceItem[]) => set({ invoiceItems: value }),
     rateAmounts: undefined,

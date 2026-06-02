@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import request from "../api";
 import { BACKEND_URLS } from "../constants";
 import type { AddBusinessSchemaType } from "../schema";
-import { Business, ApiEnvelope, ApiError } from "../types";
+import { IBusiness, ApiEnvelope, ApiError } from "../types";
 
 
 const businessQueryKey = ["businesses"];
@@ -24,19 +24,19 @@ const getErrorMessage = (error: AxiosError<ApiError>, fallback: string) =>
   error.response?.data?.message ?? fallback;
 
 export const useBusinesses = () => {
-  return useQuery<Business[]>({
+  return useQuery<IBusiness[]>({
     queryKey: businessQueryKey,
     queryFn: async () => {
-      const response = await request.get<ApiEnvelope<Business[]>>(BACKEND_URLS.BUSINESSES);
+      const response = await request.get<ApiEnvelope<IBusiness[]>>(BACKEND_URLS.BUSINESSES);
       return response.data.data;
     },
   });
 };
 
-export const useCreateBusiness = (options?: { onSuccess?: (business: Business) => void }) => {
+export const useCreateBusiness = (options?: { onSuccess?: (business: IBusiness) => void }) => {
   const queryClient = useQueryClient();
 
-  return useMutation<AxiosResponse<ApiEnvelope<Business>>, AxiosError<ApiError>, AddBusinessSchemaType>({
+  return useMutation<AxiosResponse<ApiEnvelope<IBusiness>>, AxiosError<ApiError>, AddBusinessSchemaType>({
     mutationFn: (data) => request.post(BACKEND_URLS.BUSINESSES, toBusinessPayload(data)),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: businessQueryKey });
@@ -49,11 +49,11 @@ export const useCreateBusiness = (options?: { onSuccess?: (business: Business) =
   });
 };
 
-export const useUpdateBusiness = (options?: { onSuccess?: (business: Business) => void }) => {
+export const useUpdateBusiness = (options?: { onSuccess?: (business: IBusiness) => void }) => {
   const queryClient = useQueryClient();
 
   return useMutation<
-    AxiosResponse<ApiEnvelope<Business>>,
+    AxiosResponse<ApiEnvelope<IBusiness>>,
     AxiosError<ApiError>,
     { id: string; data: AddBusinessSchemaType }
   >({
@@ -69,10 +69,10 @@ export const useUpdateBusiness = (options?: { onSuccess?: (business: Business) =
   });
 };
 
-export const useDeleteBusiness = (options?: { onSuccess?: (business: Business) => void }) => {
+export const useDeleteBusiness = (options?: { onSuccess?: (business: IBusiness) => void }) => {
   const queryClient = useQueryClient();
 
-  return useMutation<AxiosResponse<ApiEnvelope<Business>>, AxiosError<ApiError>, string>({
+  return useMutation<AxiosResponse<ApiEnvelope<IBusiness>>, AxiosError<ApiError>, string>({
     mutationFn: (id) => request.delete(`${BACKEND_URLS.BUSINESSES}/${id}`),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: businessQueryKey });
