@@ -4,32 +4,8 @@ import { toast } from "sonner";
 import request from "../api";
 import { BACKEND_URLS } from "../constants";
 import type { AddBusinessSchemaType } from "../schema";
+import { Business, ApiEnvelope, ApiError } from "../types";
 
-type ApiEnvelope<T> = {
-  success: boolean;
-  data: T;
-  message?: string;
-};
-
-type ApiError = {
-  message?: string;
-};
-
-export type Business = {
-  id: string;
-  ownerId: string;
-  name: string;
-  logoUrl: string | null;
-  email: string | null;
-  phone: string | null;
-  address: string | null;
-  city: string | null;
-  country: string | null;
-  taxId: string | null;
-  currency: string;
-  createdAt: string;
-  updatedAt: string;
-};
 
 const businessQueryKey = ["businesses"];
 

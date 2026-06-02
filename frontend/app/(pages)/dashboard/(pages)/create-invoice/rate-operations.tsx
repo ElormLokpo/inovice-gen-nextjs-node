@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { CInput } from "@/app/components/shared/input"
+import { CInput } from "@/app/components"
 import { RateValues, useRateValues } from "@/app/store"
 
 export const RateOperationsForm = () => {

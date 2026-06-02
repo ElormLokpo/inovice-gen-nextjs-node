@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { FRONTEND_URLS } from "@/app/constants";
-import { useConfirmEmail, useResendConfirmation } from "@/app/hooks/useAuth";
+import { useConfirmEmail, useResendConfirmation } from "@/app/hooks";
 
 export default function ConfirmEmailPage() {
     const searchParams = useSearchParams();

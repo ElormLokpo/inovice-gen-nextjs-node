@@ -1,5 +1,5 @@
-import { CInput } from "@/app/components/shared/input";
-import { Business, useCreateBusiness, useUpdateBusiness } from "@/app/hooks/useBusiness";
+import { CInput } from "@/app/components";
+import { Business, useCreateBusiness, useUpdateBusiness } from "@/app/hooks";
 import { useCloudinaryUpload } from "@/app/hooks/useCloudinaryUpload";
 import { AddBusinessSchema, AddBusinessSchemaType } from "@/app/schema";
 import { useSideModal } from "@/app/store";

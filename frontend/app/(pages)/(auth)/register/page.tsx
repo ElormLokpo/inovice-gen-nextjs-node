@@ -3,8 +3,8 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterSchema, RegisterSchemaType } from "@/app/schema";
-import { useRegister } from "@/app/hooks/useAuth";
-import { CInput } from "@/app/components/shared/input";
+import { useRegister } from "@/app/hooks";
+import { CInput } from "@/app/components";
 import { FRONTEND_URLS } from "@/app/constants";
 
 export default function RegisterPage() {

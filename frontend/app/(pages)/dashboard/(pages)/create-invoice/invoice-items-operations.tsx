@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Cbutton } from "@/app/components/shared/button"
+import { Cbutton } from "@/app/components"
 import { useRateValues, useInvoiceItems } from "@/app/store"
 
 interface IInvoiceItem {

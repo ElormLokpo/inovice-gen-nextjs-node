@@ -2,10 +2,9 @@
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginSchema } from "@/app/schema";
-import { LoginSchemaType } from "@/app/schema";
-import { useLogin } from "@/app/hooks/useAuth";
-import { CInput } from "@/app/components/shared/input";
+import { LoginSchema, LoginSchemaType  } from "@/app/schema";
+import { useLogin } from "@/app/hooks";
+import { CInput } from "@/app/components";
 import { FRONTEND_URLS } from "@/app/constants";
 
 export default function LoginPage() {

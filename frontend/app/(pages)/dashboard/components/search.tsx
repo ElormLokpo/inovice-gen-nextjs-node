@@ -1,5 +1,5 @@
 "use client"
-import { CInput } from "@/app/components/shared/input"
+import { CInput } from "@/app/components"
 import { FolderPlusIcon } from "@phosphor-icons/react"
 
 

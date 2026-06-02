@@ -2,10 +2,10 @@
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CInput } from "@/app/components/shared/input";
+import { CInput } from "@/app/components";
 import { FRONTEND_URLS } from "@/app/constants";
 import { ForgotPasswordSchema, type ForgotPasswordSchemaType } from "@/app/schema";
-import { useForgotPassword } from "@/app/hooks/useAuth";
+import { useForgotPassword } from "@/app/hooks";
 
 export default function ForgotPasswordPage() {
     const { register, handleSubmit, formState: { errors } } = useForm<ForgotPasswordSchemaType>({
