@@ -2,10 +2,8 @@ import { eq } from "drizzle-orm";
 import { UserModel } from "../models";
 import { db } from "../db";
 import { CustomError, type IAuthRequestType, type ILoginType, type JwtUserPayload} from "../types";
-import { comparePassword, hashPassword } from "../utils/hash";
-import { generateJwt } from "../utils/jwt.gen";
-import { createPlainToken, hashToken } from "../utils/tokens";
-import { sendDemoMail } from "./mail.service";
+import { generateJwt,createPlainToken, hashToken,comparePassword, hashPassword, frontendUrl } from "../utils";
+import { sendDemoMail } from "./";
 
 
 const userEmailExists = async (email:string)=> await db.select().from(UserModel).where(eq(UserModel.email,email.toLowerCase()))
@@ -29,7 +27,6 @@ const userJwtPayload = (user: typeof UserModel.$inferSelect): JwtUserPayload => 
     emailVerified: Boolean(user.emailVerifiedAt),
 });
 
-const frontendUrl = () => process.env.FRONTEND_URL ?? process.env.APP_URL ?? "http://localhost:3000";
 
 const sendConfirmationEmail = async (email:string, token:string) => {
     const confirmationUrl = `${frontendUrl()}/confirm-email?token=${token}`;

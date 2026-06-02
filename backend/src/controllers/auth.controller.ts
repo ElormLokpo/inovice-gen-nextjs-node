@@ -8,18 +8,12 @@ import {
     ResetPasswordService,
 } from "../services/auth.service";
 import { CustomError, type IAuthRequestType, type ILoginType } from "../types";
-
+import { handleResult } from "../utils/helper.functions";
 
 export const RegisterUserController = async (req:Request,res:Response,next:NextFunction)=>{
     try {
-        const user = await RegisterUserService(req.body as IAuthRequestType);
-
-        if(user instanceof CustomError){
-            next(user)
-            return;
-        }
-
-        res.status(201).json({success:true,data:user});
+      
+        handleResult(res, next, await RegisterUserService(req.body as IAuthRequestType), 201);
     } catch (error) {
         next(error);
     }
@@ -29,16 +23,7 @@ export const RegisterUserController = async (req:Request,res:Response,next:NextF
 
 export const LoginUserController = async (req:Request,res:Response,next:NextFunction)=>{
     try {
-        const user:any = await LoginUserService(req.body as ILoginType);
-
-        if(user instanceof CustomError){
-            next(user)
-            return;
-        }
-
-        res.status(200).json({success:true,data:user});
-    
-    
+        handleResult(res, next, await LoginUserService(req.body as ILoginType));
     } catch (error) {
         next(error);
     }
@@ -53,14 +38,7 @@ export const ConfirmEmailController = async (req:Request,res:Response,next:NextF
             return;
         }
 
-        const user = await ConfirmEmailService(token);
-
-        if(user instanceof CustomError){
-            next(user)
-            return;
-        }
-
-        res.status(200).json({success:true,data:user});
+        handleResult(res, next, await ConfirmEmailService(token));
     } catch (error) {
         next(error);
     }
@@ -68,14 +46,7 @@ export const ConfirmEmailController = async (req:Request,res:Response,next:NextF
 
 export const ResendConfirmationController = async (req:Request,res:Response,next:NextFunction)=>{
     try {
-        const result = await ResendConfirmationService(String(req.body.email ?? ""));
-
-        if(result instanceof CustomError){
-            next(result)
-            return;
-        }
-
-        res.status(200).json({success:true,data:result});
+        handleResult(res, next, await ResendConfirmationService(String(req.body.email ?? "")));
     } catch (error) {
         next(error);
     }
@@ -83,8 +54,8 @@ export const ResendConfirmationController = async (req:Request,res:Response,next
 
 export const ForgotPasswordController = async (req:Request,res:Response,next:NextFunction)=>{
     try {
-        const result = await ForgotPasswordService(String(req.body.email ?? ""));
-        res.status(200).json({success:true,data:result});
+     
+        handleResult(res, next,  await ForgotPasswordService(String(req.body.email ?? "")));
     } catch (error) {
         next(error);
     }
@@ -100,14 +71,7 @@ export const ResetPasswordController = async (req:Request,res:Response,next:Next
             return;
         }
 
-        const user = await ResetPasswordService(token, password);
-
-        if(user instanceof CustomError){
-            next(user)
-            return;
-        }
-
-        res.status(200).json({success:true,data:user});
+        handleResult(res, next, await ResetPasswordService(token, password));
     } catch (error) {
         next(error);
     }

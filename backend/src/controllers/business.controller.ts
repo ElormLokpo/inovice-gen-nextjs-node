@@ -6,16 +6,9 @@ import {
   listBusinesses,
   updateBusiness,
 } from "../services/business.service";
-import { CustomError, type AuthenticatedRequest } from "../types";
+import {  type AuthenticatedRequest } from "../types";
+import { handleResult } from "../utils";
 
-const handleResult = (res: Response, next: NextFunction, result: unknown, status = 200) => {
-  if (result instanceof CustomError) {
-    next(result);
-    return;
-  }
-
-  res.status(status).json({ success: true, data: result });
-};
 
 export const ListBusinessesController = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   try {
