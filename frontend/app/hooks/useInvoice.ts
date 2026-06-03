@@ -6,7 +6,6 @@ import { BACKEND_URLS } from "../constants";
 import {IInvoice, ApiEnvelope, ApiError } from "../types";
 
 
-
 const InvoiceQueryKey = ["invoices"];
 
 // const toInvoicePayload = (data: Invoice) => ({

@@ -10,8 +10,8 @@ import {
   RegisterSchemaType,
   ResetPasswordSchemaType,
 } from "../schema";
-import { useAuthStore, type IUserData } from "../store";
-import { ApiEnvelope, ApiError, MessageData } from "../types";
+import { useAuthStore} from "../store";
+import { ApiEnvelope, ApiError, MessageData, type IUserData  } from "../types";
 
 type LoginData = {
   token: string;
