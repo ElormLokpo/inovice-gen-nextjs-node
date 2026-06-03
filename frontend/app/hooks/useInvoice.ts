@@ -1,27 +1,40 @@
 import { useMutation, useQueryClient,  useQuery } from "@tanstack/react-query";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosError } from "axios";
+
 import { toast } from "sonner";
 import request from "../api";
 import { BACKEND_URLS } from "../constants";
-import {IInvoice, ApiEnvelope, ApiError } from "../types";
+import {IInvoice, ApiEnvelope, ICreateInvoiceData, ApiError } from "../types";
 
 
 const InvoiceQueryKey = ["invoices"];
 
-// const toInvoicePayload = (data: Invoice) => ({
-//   ...data,
-//   issueDate: data.issueDate?.toISOString() ?? null,
-//   dueDate: data.dueDate?.toISOString() ?? null,
-// });
+const sumInvoiceItems = (data: ICreateInvoiceData) =>
+  data.invoiceItems.reduce((sum, item) => sum + Number(item.amount || 0), 0);
 
-const getErrorMessage = (error: AxiosError<ApiError>, fallback: string) =>
-  error.response?.data?.message ?? fallback;
+const toInvoicePayload = (data: ICreateInvoiceData) => {
+  const subtotal = data.subtotal ?? data.total ?? sumInvoiceItems(data);
+  const taxTotal =
+    (data.nhilAmount ?? 0) +
+    (data.getfundAmount ?? 0) +
+    (data.covidAmount ?? 0) +
+    (data.vatAmount ?? 0);
+
+  return {
+    ...data,
+    clientEmail: data.clientEmail ?? data.clientDetails.email,
+    items: data.items ?? data.invoiceItems,
+    subtotal,
+    totalAmount: data.totalAmount ?? subtotal + taxTotal,
+  };
+};
+
 
 export const useInvoices = () => {
   return useQuery<IInvoice[]>({
     queryKey: InvoiceQueryKey,
     queryFn: async () => {
-      const response = await request.get<ApiEnvelope<IInvoice[]>>(BACKEND_URLS.INOVICES);
+      const response = await request.get<ApiEnvelope<IInvoice[]>>(BACKEND_URLS.INVOICES);
       return response.data.data;
     },
   });
@@ -30,15 +43,17 @@ export const useInvoices = () => {
 export const useCreateInvoice = (options?: { onSuccess?: (Invoice: IInvoice) => void }) => {
   const queryClient = useQueryClient();
 
-  return useMutation<AxiosResponse<ApiEnvelope<IInvoice>>, AxiosError<ApiError>>({
-    mutationFn: (data) => request.post(BACKEND_URLS.INOVICES, data),
+  return useMutation({
+    mutationFn: (data:ICreateInvoiceData) =>
+      request.post<ApiEnvelope<IInvoice>>(BACKEND_URLS.INVOICES, toInvoicePayload(data)),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: InvoiceQueryKey });
-      toast.success("Invoice added successfully");
+      toast.success("Invoice generated successfully");
       options?.onSuccess?.(response.data.data);
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, "Unable to add Invoice."));
+      const requestError = error as AxiosError<ApiError>;
+      toast.error(requestError.response?.data?.message ?? "Unable to generate invoice.");
     },
   });
 };
