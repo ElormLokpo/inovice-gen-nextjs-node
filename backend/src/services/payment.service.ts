@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 import { db } from "../db";
 import { PaymentModel } from "../models";
 import { CustomError, type JwtUserPayload } from "../types";
-import { assertInvoiceAccess } from "./invoice.service";
+import { assertInvoiceAccess } from "./";
 
 export const listPayments = async (invoiceId: string, user: JwtUserPayload) => {
   if (!invoiceId) return new CustomError("Invoice id is required", 400);

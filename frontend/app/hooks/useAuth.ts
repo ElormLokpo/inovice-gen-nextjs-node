@@ -10,26 +10,15 @@ import {
   RegisterSchemaType,
   ResetPasswordSchemaType,
 } from "../schema";
-import { useAuthStore, type IUserData } from "../store";
-
-type ApiEnvelope<T> = {
-  success: boolean;
-  data: T;
-  message?: string;
-};
+import { useAuthStore} from "../store";
+import { ApiEnvelope, ApiError, MessageData, type IUserData  } from "../types";
 
 type LoginData = {
   token: string;
   user: IUserData;
 };
 
-type MessageData = {
-  message: string;
-};
 
-type ApiError = {
-  message?: string;
-};
 
 export const useLogin = () => {
   const setAuth = useAuthStore((state) => state.setAuth);

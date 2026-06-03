@@ -1,8 +1,7 @@
 "use client"
 import { ReactNode } from "react";
-import { DashboardSideNav } from "./components/side-nav";
-import { TopNav } from "./components/top-nav";
-import { Search } from "./components/search";
+
+import { TopNav, Search, DashboardSideNav } from "./components";
 import { useSideModal } from "@/app/store";
 import { cn } from "@/app/lib/utils";
 

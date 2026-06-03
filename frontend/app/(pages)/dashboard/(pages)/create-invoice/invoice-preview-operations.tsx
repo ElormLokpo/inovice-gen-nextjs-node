@@ -1,11 +1,11 @@
-import { Cbutton } from "@/app/components/shared/button"
+import { Cbutton } from "@/app/components"
 import { ArrowCircleDownIcon } from "@phosphor-icons/react"
 
-import { Business } from "@/app/hooks/useBusiness"
+import { IBusiness } from "@/app/types"
 import { useClients, useInvoiceItems, useRateValues } from "@/app/store"
 
 
-export const InvoicePreviewOperations = ({ selectedBusiness, invoiceDates }: { selectedBusiness?: Business, invoiceDates?: { issueDate: string, dueDate: string } }) => {
+export const InvoicePreviewOperations = ({ selectedBusiness, invoiceDates }: { selectedBusiness?: IBusiness, invoiceDates?: { issueDate: string, dueDate: string } }) => {
     const invoiceItems = useInvoiceItems((state) => state.invoiceItems)
     const rateAmounts = useInvoiceItems((state) => state.rateAmounts)
     const rateValues = useRateValues((state) => state.rateValues)

@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 import { db } from "../db";
 import { ClientModel } from "../models";
 import { CustomError, type JwtUserPayload } from "../types";
-import { assertBusinessAccess } from "./business.service";
+import { assertBusinessAccess } from "./";
 
 export const assertClientAccess = async (clientId: string, user: JwtUserPayload) => {
   if (!clientId) return new CustomError("Client id is required", 400);
@@ -26,6 +26,16 @@ export const listClients = async (businessId: string, user: JwtUserPayload) => {
 
 export const getClient = async (clientId: string, user: JwtUserPayload) =>
   assertClientAccess(clientId, user);
+
+export const getClientByEmail = async (email: string, user: JwtUserPayload) => {
+  if (!email) return new CustomError("Email is required", 400);
+
+  const [client] = await db.select().from(ClientModel).where(eq(ClientModel.email , email));
+
+  if (!client) return new CustomError("Client not found", 404);
+
+  return client;
+}
 
 export const createClient = async (payload: typeof ClientModel.$inferInsert, user: JwtUserPayload) => {
   if (!payload.businessId) return new CustomError("Business id is required", 400);

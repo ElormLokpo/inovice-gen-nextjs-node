@@ -1,15 +1,7 @@
 import type { NextFunction, Response } from "express";
 import { createPayment, deletePayment, listPayments } from "../services/payment.service";
-import { CustomError, type AuthenticatedRequest } from "../types";
-
-const handleResult = (res: Response, next: NextFunction, result: unknown, status = 200) => {
-  if (result instanceof CustomError) {
-    next(result);
-    return;
-  }
-
-  res.status(status).json({ success: true, data: result });
-};
+import { type AuthenticatedRequest } from "../types";
+import { handleResult } from "../utils";
 
 export const ListPaymentsController = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   try {

@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import request from "../api";
 import { BACKEND_URLS } from "../constants";
+import { ApiEnvelope} from "../types";
 
 type CloudinaryUploadResponse = {
   secure_url: string;
@@ -16,10 +17,6 @@ type CloudinarySignatureResponse = {
   timestamp: number;
 };
 
-type ApiEnvelope<T> = {
-  success: boolean;
-  data: T;
-};
 
 type UploadFileOptions = {
   file: File;

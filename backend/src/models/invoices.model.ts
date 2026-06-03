@@ -34,11 +34,16 @@ export const InvoiceModel = pgTable("invoices", {
   dueDate: date("due_date").notNull(),
   currency: text("currency").notNull().default("GHS"),
   subtotal: numeric("subtotal", { precision: 10, scale: 2 }).notNull().default("0"),
-  taxAmount: numeric("tax_amount", { precision: 10, scale: 2 }).notNull().default("0"),
-  discountAmount: numeric("discount_amount", { precision: 10, scale: 2 }).notNull().default("0"),
-  total: numeric("total", { precision: 10, scale: 2 }).notNull().default("0"),
-  notes: text("notes"),
-  paymentTerms: text("payment_terms"),
+  nhilAmount: numeric("nhil_amount", { precision: 10, scale: 2 }).notNull().default("0"),
+  getfundAmount: numeric("getfund_amount", { precision: 10, scale: 2 }).notNull().default("0"),
+  covidAmount: numeric("covid_amount", { precision: 10, scale: 2 }).notNull().default("0"),
+  vatAmount: numeric("vat_amount", { precision: 10, scale: 2 }).notNull().default("0"),
+  totalAmount: numeric("total_amount", { precision: 10, scale: 2 }).notNull().default("0"),
+  nhil: numeric("nhil", { precision: 10, scale: 2 }).notNull().default("0"),
+  getfund: numeric("getfund", { precision: 10, scale: 2 }).notNull().default("0"),
+  covid: numeric("covid", { precision: 10, scale: 2 }).notNull().default("0"),
+  vat: numeric("vat", { precision: 10, scale: 2 }).notNull().default("0"),
+  
   paidAt: timestamp("paid_at"),
   ...timestamps
 });

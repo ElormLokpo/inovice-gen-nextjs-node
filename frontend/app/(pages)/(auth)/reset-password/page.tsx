@@ -4,10 +4,10 @@ import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CInput } from "@/app/components/shared/input";
+import { CInput } from "@/app/components";
 import { FRONTEND_URLS } from "@/app/constants";
 import { ResetPasswordSchema, type ResetPasswordSchemaType } from "@/app/schema";
-import { useResetPassword } from "@/app/hooks/useAuth";
+import { useResetPassword } from "@/app/hooks";
 
 export default function ResetPasswordPage() {
     const searchParams = useSearchParams();

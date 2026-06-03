@@ -1,7 +1,7 @@
 import { IoMdClose } from "react-icons/io";
 import { useSideModal } from "@/app/store";
 import { ReactNode } from "react";
-import { Cbutton } from "@/app/components/shared/button";
+import { Cbutton } from "@/app/components";
 import { cn } from "@/app/lib/utils";
 
 

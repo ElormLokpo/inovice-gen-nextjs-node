@@ -1,14 +1,8 @@
 import express, { urlencoded } from 'express';
 import cors from 'cors';
-import { authRoutes } from '../routes/auth.routes';
-import { ErrorMiddleware } from '../middleware/error.middleware';
-import { businessRoutes } from '../routes/business.routes';
-import { clientRoutes } from '../routes/client.routes';
-import { invoiceItemRoutes } from '../routes/invoice-item.routes';
-import { invoiceRoutes } from '../routes/invoice.routes';
-import { paymentRoutes } from '../routes/payment.routes';
-import { uploadRoutes } from '../routes/upload.routes';
 
+import { ErrorMiddleware } from '../middleware';
+import {authRoutes,invoiceRoutes, uploadRoutes, businessRoutes, paymentRoutes} from '../routes';
 
 export const CreateServer = ()=>{
     const app:express.Application = express();
@@ -27,9 +21,7 @@ export const CreateServer = ()=>{
 
     app.use("/api/auth", authRoutes);
     app.use("/api/businesses", businessRoutes);
-    app.use("/api/clients", clientRoutes);
     app.use("/api/invoices", invoiceRoutes);
-    app.use("/api/invoice-items", invoiceItemRoutes);
     app.use("/api/payments", paymentRoutes);
     app.use("/api/uploads", uploadRoutes);
 

@@ -1,9 +1,5 @@
 
 
-
-
-
-
 export const BACKEND_URLS = {
     LOGIN: "/api/auth/login",
     REGISTER: "/api/auth/register",
@@ -14,6 +10,7 @@ export const BACKEND_URLS = {
     CLOUDINARY_SIGNATURE: "/api/uploads/cloudinary/signature",
     BUSINESSES: "/api/businesses",
     CLIENTS: "/api/clients",
+    INOVICES: "/api/invoices",
 }
 
 export const FRONTEND_URLS = {

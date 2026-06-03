@@ -1,5 +1,5 @@
 
-import { CInput } from "@/app/components/shared/input";
+import { CInput } from "@/app/components";
 import { useClients } from "@/app/store";
 
 
