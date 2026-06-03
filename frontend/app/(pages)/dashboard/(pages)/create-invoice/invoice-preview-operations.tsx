@@ -3,6 +3,10 @@ import { ArrowCircleDownIcon } from "@phosphor-icons/react"
 
 import { IBusiness } from "@/app/types"
 import { useClients, useInvoiceItems, useRateValues } from "@/app/store"
+import { useCreateInvoice } from "@/app/hooks/useInvoice"
+import { toast } from "sonner"
+import { pdf } from "@react-pdf/renderer"
+import { InvoicePdfDocument } from "./invoice-pdf-document"
 
 
 export const InvoicePreviewOperations = ({ selectedBusiness, invoiceDates }: { selectedBusiness?: IBusiness, invoiceDates?: { issueDate: string, dueDate: string } }) => {
@@ -11,21 +15,68 @@ export const InvoicePreviewOperations = ({ selectedBusiness, invoiceDates }: { s
     const rateValues = useRateValues((state) => state.rateValues)
 
     const selectedClient = useClients((state) => state.client)
+    const { mutateAsync: createInvoice, isPending } = useCreateInvoice()
 
-    const handleDownloadInvoice = () => {
-        console.log("Download Invoice")
+    const downloadInvoicePdf = async (invoiceData: Awaited<ReturnType<typeof createInvoice>>["data"]["data"]) => {
+        if (!selectedBusiness) return
 
-        const finalData = {
-            businessId: selectedBusiness?.id,
-            currency: selectedBusiness?.currency || "GHS",
-            clientDetails: selectedClient,
-            invoiceItems: invoiceItems,
-            ...rateAmounts,
-            ...rateValues,
-            ...invoiceDates,
+        const invoiceBlob = await pdf(
+            <InvoicePdfDocument
+                invoice={invoiceData}
+                business={selectedBusiness}
+                client={selectedClient}
+                items={invoiceItems}
+                rateAmounts={rateAmounts}
+                rateValues={rateValues}
+            />,
+        ).toBlob()
+
+        const url = URL.createObjectURL(invoiceBlob)
+        const link = document.createElement("a")
+        link.href = url
+        link.download = `${invoiceData.invoiceNumber}.pdf`
+        document.body.appendChild(link)
+        link.click()
+        link.remove()
+        URL.revokeObjectURL(url)
+    }
+
+    const handleDownloadInvoice = async () => {
+        if (!selectedBusiness?.id) {
+            toast.error("Select a business before generating the invoice.")
+            return
         }
 
-        console.log(finalData);
+        if (!selectedClient.name.trim()) {
+            toast.error("Add the client details before generating the invoice.")
+            return
+        }
+
+        if (!invoiceDates?.issueDate || !invoiceDates.dueDate) {
+            toast.error("Add the invoice issue and due dates.")
+            return
+        }
+
+        if (!invoiceItems.length) {
+            toast.error("Add at least one invoice item.")
+            return
+        }
+
+        const finalData = {
+            businessId: selectedBusiness.id,
+            currency: selectedBusiness.currency || "GHS",
+            clientDetails: selectedClient,
+            clientEmail: selectedClient.email,
+            invoiceItems: invoiceItems,
+            subtotal: rateAmounts?.total,
+            ...rateAmounts,
+            ...rateValues,
+            issueDate: invoiceDates.issueDate,
+            dueDate: invoiceDates.dueDate,
+        }
+
+        const response = await createInvoice(finalData)
+        await downloadInvoicePdf(response.data.data)
     }
 
 
@@ -37,7 +88,7 @@ export const InvoicePreviewOperations = ({ selectedBusiness, invoiceDates }: { s
 
                 <div className="flex gap-3 items-center">
 
-                    <Cbutton handler={handleDownloadInvoice} buttonType="standard" variant="secondary" size="sm" label="Download Invoice" icon={<ArrowCircleDownIcon size={12} />} />
+                    <Cbutton handler={handleDownloadInvoice} buttonType="standard" variant="secondary" size="sm" label="Generate Invoice" loadingText="Generating..." isLoading={isPending} icon={<ArrowCircleDownIcon size={12} />} />
                 </div>
             </div>
 
@@ -60,19 +111,19 @@ export const InvoicePreviewOperations = ({ selectedBusiness, invoiceDates }: { s
 
                 <div className="p-2 bg-zinc-800/20 mb-10 text-xs flex justify-between mb-4 rounded-xl border border-zinc-600/50">
                     <div className="flex flex-col gap-1">
-                        <span className="text-zinc-400">Send to:</span>
-                        <span className="">{selectedClient.name.length > 0 ? selectedClient.name : "Client Name"}</span>
-                        <span className="text-zinc-400">{selectedClient.address.length > 0 ? selectedClient.address : "Client Address"}</span>
-                        <span className="text-zinc-400">{selectedClient.phone.length > 0 ? selectedClient.phone : "Client Phone"}</span>
+                        <span className="text-zinc-400 mb-2">Send to:</span>
+                        <span className=" mb-2">{selectedClient.name.length > 0 ? selectedClient.name : "Client Name"}</span>
+                        <span className="text-zinc-400 mb-2">{selectedClient.address.length > 0 ? selectedClient.address : "Client Address"}</span>
+                        <span className="text-zinc-400 mb-2">{selectedClient.phone.length > 0 ? selectedClient.phone : "Client Phone"}</span>
 
 
 
                     </div>
                     <div className="flex flex-col gap-1 text-right">
-                        <span className="text-zinc-400">Sent from:</span>
-                        <span className="">{selectedBusiness ? selectedBusiness?.name : "Business Name"}</span>
-                        <span className="text-zinc-400">{selectedBusiness ? selectedBusiness?.address : "Business Address"}</span>
-                        <span className="text-zinc-400">{selectedBusiness ? selectedBusiness?.phone : "Business Phone"}</span>
+                        <span className="text-zinc-400 mb-2">Sent from:</span>
+                        <span className=" mb-2">{selectedBusiness ? selectedBusiness?.name : "Business Name"}</span>
+                        <span className="text-zinc-400 mb-2">{selectedBusiness ? selectedBusiness?.address : "Business Address"}</span>
+                        <span className="text-zinc-400 mb-2">{selectedBusiness ? selectedBusiness?.phone : "Business Phone"}</span>
 
                     </div>
                 </div>

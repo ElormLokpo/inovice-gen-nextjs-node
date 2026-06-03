@@ -27,7 +27,7 @@ export const listClients = async (businessId: string, user: JwtUserPayload) => {
 export const getClient = async (clientId: string, user: JwtUserPayload) =>
   assertClientAccess(clientId, user);
 
-export const getClientByEmail = async (email: string, user: JwtUserPayload) => {
+export const getClientByEmail = async (email: string, _user: JwtUserPayload) => {
   if (!email) return new CustomError("Email is required", 400);
 
   const [client] = await db.select().from(ClientModel).where(eq(ClientModel.email , email));

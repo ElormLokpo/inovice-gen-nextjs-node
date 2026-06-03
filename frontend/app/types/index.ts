@@ -49,71 +49,101 @@ export interface IInvoice {
   getfundAmount: number;
   covidAmount: number;
   vatAmount: number;
+  totalAmount: number;
+  nhil: number;
+  getfund: number;
+  covid: number;
+  vat: number;
   paidAt: string;
   createdAt: string;
   updatedAt: string;
 }
 
+export interface ICreateInvoiceData {
+
+  issueDate?: string | undefined;
+  dueDate?: string | undefined;
+  nhil?: number | undefined;
+  getfund?: number | undefined;
+  covid?: number | undefined;
+  vat?: number | undefined;
+  nhilAmount?: number | undefined;
+  getfundAmount?: number | undefined;
+  covidAmount?: number | undefined;
+  vatAmount?: number | undefined;
+  subtotal?: number | undefined;
+  total?: number | undefined;
+  totalAmount?: number | undefined;
+  businessId: string | undefined;
+  currency: string;
+  clientDetails: IClient;
+  clientEmail?: string | undefined;
+  clientId?: string | undefined;
+  items?: IInvoiceItem[];
+  invoiceItems: IInvoiceItem[];
+}
+
+
 
 export interface IInvoiceItem {
-    partNumber: string;
-    description: string;
-    unitPrice: number;
-    quantity: number;
-    amount: number;
+  partNumber: string;
+  description: string;
+  unitPrice: number;
+  quantity: number;
+  amount: number;
 }
 
 export interface IRateAmounts {
-    nhilAmount: number;
-    getfundAmount: number;
-    covidAmount: number;
-    vatAmount: number;
-    total: number;
+  nhilAmount: number;
+  getfundAmount: number;
+  covidAmount: number;
+  vatAmount: number;
+  total: number;
 }
 
 export interface IClient {
-   
-    name: string;
-    email: string;
-    phone: string;
-    address: string;
-    city: string;
-    country: string;
+
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  country: string;
 }
 
 export interface IClientState {
-    client: IClient;
-    setClient: (value: IClient | ((prev: IClient) => IClient)) => void;
+  client: IClient;
+  setClient: (value: IClient | ((prev: IClient) => IClient)) => void;
 }
 
 
 export interface IInvoiceItemsState {
-    invoiceItems: IInvoiceItem[];
-    rateAmounts?: IRateAmounts;
-    setRateAmounts: (value: IRateAmounts) => void;
-    setInvoiceItems: (value: IInvoiceItem[]) => void;
+  invoiceItems: IInvoiceItem[];
+  rateAmounts?: IRateAmounts;
+  setRateAmounts: (value: IRateAmounts) => void;
+  setInvoiceItems: (value: IInvoiceItem[]) => void;
 }
 
 
 export interface IRateValues {
-    nhil?: number;
-    getfund?: number;
-    covid?: number;
-    vat?: number;
+  nhil?: number;
+  getfund?: number;
+  covid?: number;
+  vat?: number;
 }
 
-export interface IRateValueState{
-    rateValues:IRateValues;
-    setRateValues:(value:IRateValues)=>void;
+export interface IRateValueState {
+  rateValues: IRateValues;
+  setRateValues: (value: IRateValues) => void;
 }
 
 
-export interface ISideModalState{   
-    modalContent:ReactElement | null;
-    isSubmitting:boolean;
-    loadingText?:string;
-    setModalContent:(content:ReactElement | null)=>void;
-    setSubmitState:(state:{isSubmitting:boolean; loadingText?:string})=>void;
+export interface ISideModalState {
+  modalContent: ReactElement | null;
+  isSubmitting: boolean;
+  loadingText?: string;
+  setModalContent: (content: ReactElement | null) => void;
+  setSubmitState: (state: { isSubmitting: boolean; loadingText?: string }) => void;
 }
 
 export interface AuthState {
@@ -130,10 +160,10 @@ export interface AuthState {
 
 export type UserRole = "admin" | "user" | "guest";
 
-export interface IUserData{
-    id:string;
-    fullName:string;
-    email:string;
-    role:UserRole;
-    emailVerified:boolean;
+export interface IUserData {
+  id: string;
+  fullName: string;
+  email: string;
+  role: UserRole;
+  emailVerified: boolean;
 }

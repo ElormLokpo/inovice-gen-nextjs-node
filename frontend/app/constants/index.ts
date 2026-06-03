@@ -10,6 +10,7 @@ export const BACKEND_URLS = {
     CLOUDINARY_SIGNATURE: "/api/uploads/cloudinary/signature",
     BUSINESSES: "/api/businesses",
     CLIENTS: "/api/clients",
+    INVOICES: "/api/invoices",
     INOVICES: "/api/invoices",
 }
 
