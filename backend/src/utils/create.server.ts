@@ -33,6 +33,8 @@ export const CreateServer = ()=>{
             console.log(error);
             process.exit(1);
         }
+
+       
         console.log(`Server is running on port ${process.env.PORT}`)
     })
 

@@ -30,7 +30,7 @@ export default function ConfirmEmailPage() {
 
                 <h1 className="text-4xl font-semibold mb-2">Confirm email</h1>
                 <p className="text-zinc-400 mb-8">
-                    {token ? "Confirming your email..." : "Check the demo email logs for your confirmation link."}
+                    {token ? "Confirming your email..." : "Check your email for your confirmation link."}
                 </p>
 
                 <div className="space-y-6">
