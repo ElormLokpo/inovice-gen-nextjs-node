@@ -28,7 +28,7 @@ export default function ForgotPasswordPage() {
                 </div>
 
                 <h1 className="text-4xl font-semibold mb-2">Reset password</h1>
-                <p className="text-zinc-400 mb-8">Enter your email and check the demo email logs for your reset link.</p>
+                <p className="text-zinc-400 mb-8">Enter your email and check your email for your reset link.</p>
 
                 <form onSubmit={handleSubmit((data) => forgotPassword(data))}>
                     <div className="space-y-6">
